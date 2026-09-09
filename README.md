@@ -2,7 +2,7 @@
 
 Project instructions for EE 473/573. Each project lives in its own folder under `projects/` with a `README.md` containing the assignment.
 
-Deadlines and grading are posted elsewhere (not in this repo).
+Check Canvas for deliverables, deadlines, and grading rubric.
 
 ## Projects
 
