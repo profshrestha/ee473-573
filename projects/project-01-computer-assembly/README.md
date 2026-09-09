@@ -1,11 +1,9 @@
 # Project 1: Computer Assembly
 
-Parts list: [computer_parts_list.pdf](computer_parts_list.pdf)
-
 - CPU: AMD Ryzen 9 9900X
 - Motherboard: MSI MAG X870
 - RAM: G.SKILL Trident Z5 Neo (DDR5)
-- GPU: NVIDIA RTX 5080 or RTX 5090 (MSI SHADOW 3X OC)
+- GPU: NVIDIA RTX 5080 (MSI SHADOW 3X OC)
 - SSD: Crucial T705 PCIe Gen5 NVMe
 - CPU Cooler: Thermalright Peerless Assassin 120 SE
 - PSU: MSI MAG A1000GL PCIE5 (1000W)
@@ -55,7 +53,7 @@ Parts list: [computer_parts_list.pdf](computer_parts_list.pdf)
 
 11. **Install the GPU.**
     - Remove the appropriate rear expansion slot covers on the case for a double/triple-slot card.
-    - Open the primary PCIe x16 slot latch, align the RTX 5080/5090's connector with the slot, and press down firmly until the latch clicks and the card is seated flush.
+    - Open the primary PCIe x16 slot latch, align the RTX 5080's connector with the slot, and press down firmly until the latch clicks and the card is seated flush.
     - Screw the GPU bracket into the case.
     - Connect the required PCIe power cable(s) from the PSU to the GPU (check the card for the number of connectors required).
     - If the case includes a GPU support bracket, install it to prevent sag.
