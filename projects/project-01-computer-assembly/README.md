@@ -18,7 +18,7 @@
 3. **Install the CPU.**
    - Unlock the motherboard's CPU socket lever and lift the retention arm.
    - Align the gold triangle/notch on the AMD Ryzen 9 9900X with the triangle on the socket.
-   - Lower the CPU straight down with no force — it should drop in flush.
+   - Lower the CPU straight down with no force. It should drop in flush.
    - Close the retention arm and lever to lock the CPU in place.
 
 4. **Install the CPU cooler.**
