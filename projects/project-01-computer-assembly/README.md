@@ -82,12 +82,13 @@ once it is mounted. The case does not come out of its box until step 6.
 
 6. **Unbox the case and remove both side panels.** Set aside the screw packs and standoffs that came with it.
 
-7. **Install the motherboard I/O shield and standoffs.**
-   - Press the I/O shield that came with the MSI MAG X870 into the rear cutout of the LIAN LI LANCOOL 216 case from the inside.
-   - Confirm standoffs in the case match the motherboard's screw holes (E-ATX layout).
+7. **Check the case standoffs.**
+   - **There is no separate I/O shield to install.** On this board the shield is built into the rear I/O shroud and comes pre-attached from the factory. Older boards shipped a loose stamped-metal shield that had to be pressed into the case first; this one does not, so do not go looking for one in the box.
+   - Confirm the standoffs in the case line up with the motherboard's screw holes, and add or relocate standoffs as needed.
+   - Just as important, make sure there is **no** standoff anywhere the board has no matching hole. A stray standoff under the board can short traces on the underside when everything is screwed down.
 
 8. **Mount the motherboard in the case.**
-   - Lower the motherboard in at an angle to align the rear ports with the I/O shield, then lay it flat onto the standoffs.
+   - Lower the motherboard in at an angle so the rear ports and their attached shield line up with the case cutout, then lay it flat onto the standoffs.
    - Secure with screws in a crisscross pattern, snug but not overtightened.
 
 9. **Install the power supply.**
