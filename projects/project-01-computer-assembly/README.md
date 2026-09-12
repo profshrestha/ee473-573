@@ -106,6 +106,7 @@ have far fewer things to suspect.
 9. **Connect PSU power to the motherboard.**
    - Connect **both** CPU power cables to the two 8-pin EPS connectors along the top edge of the board. The 9900X pulls enough that both should be populated.
    - Connect the 24-pin cable to `ATX_PWR1` on the right edge. It only goes in one way, and it takes a firm push to latch.
+   - Route the **native 12V-2x6 cable** now as well, from the PSU up through the cable cutout to where the graphics card will sit. Leave the card end unconnected until step 15. This is the PSU's own 16-pin cable rated for 600 W, not the 3 × 8-pin adapter that came in the graphics card box. Routing it at this stage is far easier than threading it past an installed card later.
 
 10. **Connect the front-panel cables from the case.**
     - Two front USB cables to their headers (`JUSB` / `JAUSB`).
