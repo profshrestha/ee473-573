@@ -62,9 +62,9 @@ have far fewer things to suspect.
    - Lower the CPU straight down with no force. It should drop in flush.
    - Close the retention arm and lever to lock the CPU in place.
 
-   <img src="images/cpu-in-open-socket.jpg" alt="The board on the bench with both memory modules and the M.2 SSD already installed, and the Ryzen 9 9900X sitting flat in the open AM5 socket with the retention bracket swung clear" width="820">
+   <img src="images/cpu-in-open-socket.jpg" alt="The Ryzen 9 9900X sitting flat in the open AM5 socket with the load plate swung clear, memory already installed above it" width="430">
 
-   This is what the board should look like at this point: memory in `DIMMA2` and `DIMMB2` from step 2, the T705 under its shield from step 3, and the 9900X now sitting flat in the open socket. Note the small gold triangle at the lower-left corner of the CPU, which lines up with the matching mark on the socket frame.
+   The 9900X sitting flat in the open socket, with the load plate swung clear and the memory from step 2 already in place above it. Note the small gold triangle at the corner of the CPU, which lines up with the matching mark on the socket frame. The chip drops in under its own weight once the triangles agree; if it sits proud, lift it straight out and check the alignment rather than pushing.
 
    <img src="images/cpu-socket-latched.jpg" alt="Close view of the AM5 socket with the load plate closed over the seated Ryzen 9 9900X, part number and AM5 marking visible" width="820">
 
