@@ -71,14 +71,14 @@ have far fewer things to suspect.
    Close the load plate over the CPU and lock the lever. The plate presses on the raised edge of the CPU, not on the die, so the closing force is normal and expected. Do not press down on the CPU itself at any point.
 
 5. **Install the CPU cooler.**
-   - Lay the kit out first. The box also contains Intel LGA115x/1200 hardware you will not use on this build, so set it aside to avoid confusion.
+   - Lay the kit out first so you can see what you have: the dual-tower heatsink, two 120 mm fans with their wire clips, the two mounting bars, a bag of screws and red standoffs, the thermal paste syringe, and the fan Y-splitter cable.
    - The mounting bars are stamped **AM4**. That is correct. AM4 and AM5 share the same cooler mounting pattern, so one bracket covers both sockets.
    - Screw the four red AM5 standoffs onto the board's mounting posts at the corners of the socket.
    - Lay the two mounting bars across the socket and tighten them down onto the standoffs.
    - Apply thermal paste: a pea-sized dot or a short line across the middle of the heat spreader. Do not spread it by hand. Clamping pressure spreads it far more evenly than you can.
    - Lower the heatsink squarely onto the CPU with its bracket over the two bars, then tighten the two captive spring screws **alternately**, a few turns on each side at a time, until they bottom out. Tightening one side fully first will cock the cooler and give you uneven contact.
 
-   <img src="images/cooler-kit.jpg" alt="Peerless Assassin 120 SE kit laid out: wire clips, mounting hardware, backplate, two fans, and the dual-tower heatsink" width="780">
+   <img src="images/cooler-kit.jpg" alt="Peerless Assassin 120 SE kit laid out: dual-tower heatsink, screw and standoff bag, fan Y-splitter, two mounting bars, thermal paste syringe, and two fans with wire clips" width="820">
 
    <img src="images/am5-standoffs.jpg" alt="Four red AM5 standoffs installed at the corners of the CPU socket" height="300"> <img src="images/am5-brackets.jpg" alt="The two AM4-stamped mounting bars installed across the socket" height="300">
 
