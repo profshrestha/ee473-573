@@ -42,7 +42,7 @@ have far fewer things to suspect.
 3. **Install the M.2 NVMe SSD.**
    - The drive is a Crucial T705, a PCIe Gen 5 NVMe M.2 SSD.
    - Use `M2_1`, the CPU-connected Gen 5 slot beside the memory slots. It is the only slot that will run this drive at full Gen 5 speed. The board silkscreens each M.2 slot with its source (`CPU` or `CHIPSET`) and which interfaces it supports, so read the labels rather than guessing.
-   - Remove the M.2 heatsink/shield covering that slot.
+   - Remove the M.2 heatsink/shield covering that slot. It is the long shield with `TOMAHAWK` printed down it in yellow, running alongside the top PCIe slot. Undo its screw and lift it off.
    - Peel the protective film off the thermal pad underneath. It is printed with `REMOVE` across its whole face. Leaving it on insulates the drive from the very heatsink meant to cool it.
    - Slide the drive into the connector at roughly a 30° angle, then press the far end down flat.
    - This board uses a toolless retention clip rather than a screw. With the drive pressed flat, the clip latches over the end notch. No screwdriver needed. If the clip will not catch, the drive is not fully seated in the connector.
