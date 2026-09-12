@@ -15,8 +15,8 @@ Everything that mounts on the motherboard goes on while the board is still on th
 steps 2 to 5, because the cooler overhangs both the memory slots and the M.2 socket once it
 is fitted. The case does not come out of its box until step 6.
 
-The first boot in step 14 runs on the CPU's integrated graphics through the motherboard's
-HDMI port, with no graphics card fitted. The RTX 5080 goes in afterwards, in step 15. Getting
+The first boot in step 13 runs on the CPU's integrated graphics through the motherboard's
+HDMI port, with no graphics card fitted. The RTX 5080 goes in afterwards, in step 14. Getting
 the base system to POST before adding a 360 W card means that if something does go wrong, you
 have far fewer things to suspect.
 
@@ -93,7 +93,7 @@ have far fewer things to suspect.
 
    <img src="images/fan-cable-connect.jpg" alt="Fan cables routed down to the CPU_FAN1 header beside PUMP_SYS1 and SYS_FAN1" height="360">
 
-6. **Unbox the case and check the standoffs.**
+6. **Unbox the case and mount the motherboard.**
    - Remove both side panels and set aside the screw packs that came with the case.
    - **Standoffs** are the small pillars that thread into the motherboard tray. The board never touches the tray directly: the standoffs hold it clear so the solder joints on the underside cannot short against the metal, and the screw-through-standoff path is also how the board grounds to the chassis. For that reason, never put insulating washers between the board and a standoff.
    - This case ships with standoffs already fitted for a standard ATX layout, which is what this board is. The extra bare threaded holes in the tray are alternate positions for other board sizes, and should be left empty.
@@ -101,59 +101,58 @@ have far fewer things to suspect.
 
    <img src="images/case-board-mounted.jpg" alt="The motherboard and cooler installed in the case, seen from the open side panel" width="430"> <img src="images/case-rear-io.jpg" alt="Rear of the case showing the motherboard's port cluster filling the cutout" width="430">
 
-   The left photo is what the case looks like at the end of step 8, once the board is down on the standoffs. The right photo is the same board seen from the rear of the case, with its port cluster filling the cutout. Nothing is wired yet in either.
+   The left photo is what the case looks like once the board is down on the standoffs. The right photo is the same board seen from the rear of the case, with its port cluster filling the cutout. Nothing is wired yet in either.
 
+   - Lower the board in at an angle so the rear ports and their attached shield line up with the case cutout, then lay it flat onto the standoffs.
    - Find the motherboard screws in the case's screw pack. They have a wide flanged head and a coarse thread. Do not confuse them with the finer M3 screws used for 2.5-inch drives and fans, which will strip a standoff if you force them in. Count out nine before you start.
 
    <img src="images/motherboard-screw.jpg" alt="A single flanged-head motherboard mounting screw on the bench" width="260"> <img src="images/screw-on-standoff.jpg" alt="A motherboard screw tightened through the board into a standoff, next to the JFP1, JFP2, JBAT1, JARGB_V2_2 and JARGB_V2_3 headers" width="400">
 
    On the right is what a correctly fitted screw looks like once the board is in: the flange bears on the bare metal ring around the mounting hole, not on any trace or component, and the standoff underneath carries the board clear of the tray. That bare ring is the ground contact, which is why nothing goes between it and the screw.
 
-   This close view also shows the headers you will be reaching for in steps 10 and 11, all clustered along the same edge: `JFP1` for the power switch, `JFP2`, the `JBAT1` CMOS jumper, and two of the addressable RGB headers, `JARGB_V2_2` and `JARGB_V2_3`. Either RGB header will do for the case lighting.
+   This close view also shows the headers you will be reaching for in steps 9 and 10, all clustered along the same edge: `JFP1` for the power switch, `JFP2`, the `JBAT1` CMOS jumper, and two of the addressable RGB headers, `JARGB_V2_2` and `JARGB_V2_3`. Either RGB header will do for the case lighting.
+
+   - Fit all **nine** screws. Start them all by hand before tightening any, then tighten in a crisscross pattern so the board seats flat. Snug only: these thread into thin sheet metal and the PCB is brittle.
 
 7. **Connect the modular cables to the PSU, then mount it.**
    - Attach the cables you will need to the MSI MAG A1000GL PCIE5 **before** it goes in the case. There is far more room to work now than there will be once it is bolted into the basement.
    - You need: the 24-pin motherboard cable, **two** CPU/EPS cables, a SATA power cable for the case, and the native 12V-2x6 cable for the graphics card later.
    - Mount the PSU in its bay with the fan facing a vent, and secure it with the four screws.
 
-8. **Mount the motherboard in the case.**
-   - Lower the board in at an angle so the rear ports and their attached shield line up with the case cutout, then lay it flat onto the standoffs.
-   - Fit all **nine** screws. Start them all by hand before tightening any, then tighten in a crisscross pattern so the board seats flat. Snug only: these thread into thin sheet metal and the PCB is brittle.
-
-9. **Connect PSU power to the motherboard.**
+8. **Connect PSU power to the motherboard.**
    - Connect **both** CPU power cables to the two 8-pin EPS connectors along the top edge of the board. The 9900X pulls enough that both should be populated.
    - Connect the 24-pin cable to `ATX_PWR1` on the right edge. It only goes in one way, and it takes a firm push to latch.
-   - Route the **native 12V-2x6 cable** now as well, from the PSU up through the cable cutout to where the graphics card will sit. Leave the card end unconnected until step 15. This is the PSU's own 16-pin cable rated for 600 W, not the 3 × 8-pin adapter that came in the graphics card box. Routing it at this stage is far easier than threading it past an installed card later.
+   - Route the **native 12V-2x6 cable** now as well, from the PSU up through the cable cutout to where the graphics card will sit. Leave the card end unconnected until step 14. This is the PSU's own 16-pin cable rated for 600 W, not the 3 × 8-pin adapter that came in the graphics card box. Routing it at this stage is far easier than threading it past an installed card later.
 
    <img src="images/psu-modular-panel.jpg" alt="Modular panel of the MSI MAG A1000GL with every socket group labelled: 12V-2x6, CPU and PCI-e, SATA and MOLEX" width="780">
 
-   The modular panel is labelled by group, and the cables are not interchangeable between groups even where the plugs physically fit. `12V-2x6` on the far left is the single 16-pin socket for the graphics card, and its cable carries a `600W` tag on the plug. The four `CPU & PCI-e` sockets feed the two EPS cables and any 8-pin PCIe cables. `SATA & MOLEX` on the right feeds the case hub in step 11. The 24-pin motherboard cable uses the wide socket in the middle.
+   The modular panel is labelled by group, and the cables are not interchangeable between groups even where the plugs physically fit. `12V-2x6` on the far left is the single 16-pin socket for the graphics card, and its cable carries a `600W` tag on the plug. The four `CPU & PCI-e` sockets feed the two EPS cables and any 8-pin PCIe cables. `SATA & MOLEX` on the right feeds the case hub in step 10. The 24-pin motherboard cable uses the wide socket in the middle.
 
    <img src="images/psu-mounted.jpg" alt="The PSU installed in the case basement with its AC inlet and rocker switch at the rear" width="780">
 
    The PSU sits in the basement with its fan facing the vent in the floor of the case, which is why the MSI logo on its side reads upside down from inside. The AC inlet and the rocker switch end up at the rear, reachable from outside once the build is done.
 
-10. **Connect the front-panel cables from the case.**
+9. **Connect the front-panel cables from the case.**
     - Two front USB cables to their headers (`JUSB` / `JAUSB`).
     - Front audio to `JAUD1`.
     - The power switch lead to `JFP1`. Check the pin legend in the motherboard manual, since this header carries the power and reset switches and the LEDs in a specific arrangement.
     - These connectors are small, stiff, and located along the bottom and right edges. Doing them now, before the case fills up with cabling, is much easier.
 
-11. **Connect case power, lighting, and fans.**
+10. **Connect case power, lighting, and fans.**
     - A SATA power lead from the PSU to the case, which powers the LANCOOL 216's fan and lighting hub.
     - The case's addressable RGB lead to `JARGB_V2`.
     - The case fan connector to a `SYS_FAN` header.
 
-12. **Cable management.**
+11. **Cable management.**
     - Route cables through the case's channels and behind the motherboard tray wherever possible.
     - Use zip ties or the case's built-in straps to pull loose cable away from any fan blades.
 
-13. **Connect the display and power.**
+12. **Connect the display and power.**
     - Connect the monitor to the **motherboard's HDMI port**. There is no graphics card in the system yet, so the display runs off the CPU's integrated graphics.
     - Connect keyboard and mouse.
     - Connect the power cord to the PSU and switch the PSU's rocker on.
 
-14. **First boot and BIOS check.**
+13. **First boot and BIOS check.**
     - Power on. Confirm the system POSTs and shows the motherboard splash screen.
     - Enter BIOS and confirm the CPU, both memory modules (correct total capacity), and the SSD are all detected.
     - **Enable the memory's EXPO profile.** Until you do, DDR5 runs at its JEDEC default of 4800 MT/s rather than the 6000 the kit is rated for, no matter which slots you used.
@@ -173,7 +172,7 @@ have far fewer things to suspect.
 
     - Power down fully and switch the PSU off before opening the case again.
 
-15. **Install the graphics card.**
+14. **Install the graphics card.**
     - Remove the rear expansion slot covers the card needs.
     - Open the latch on the top PCIe x16 slot, line the card's edge connector up with the slot, and press down evenly until the latch clicks and the bracket sits flush. Screw the bracket to the case.
 
@@ -195,5 +194,5 @@ have far fewer things to suspect.
     Extend the post until it just touches the underside of the card, then stop. It is there to carry the weight, not to push the card back up: forcing it will lever the edge connector in the slot.
     - Move the monitor cable from the motherboard to the **graphics card's** output, then boot again and confirm the card is detected.
 
-16. **Close up the case.**
+15. **Close up the case.**
     - Once the system boots successfully with the card in, do a final check for loose screws or tools inside, then refit both side panels.
