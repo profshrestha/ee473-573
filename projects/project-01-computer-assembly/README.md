@@ -98,6 +98,11 @@ have far fewer things to suspect.
    - **Standoffs** are the small pillars that thread into the motherboard tray. The board never touches the tray directly: the standoffs hold it clear so the solder joints on the underside cannot short against the metal, and the screw-through-standoff path is also how the board grounds to the chassis. For that reason, never put insulating washers between the board and a standoff.
    - This case ships with standoffs already fitted for a standard ATX layout, which is what this board is. The extra bare threaded holes in the tray are alternate positions for other board sizes, and should be left empty.
    - Hold the board over the tray and confirm a standoff sits under **every** one of its nine mounting holes.
+
+   <img src="images/case-board-mounted.jpg" alt="The motherboard and cooler installed in the case, seen from the open side panel" width="430"> <img src="images/case-rear-io.jpg" alt="Rear of the case showing the motherboard's port cluster filling the cutout" width="430">
+
+   The left photo is what the case looks like at the end of step 8, once the board is down on the standoffs. The right photo is the same board seen from the rear of the case, with its port cluster filling the cutout. Nothing is wired yet in either.
+
    - Find the motherboard screws in the case's screw pack. They have a wide flanged head and a coarse thread. Do not confuse them with the finer M3 screws used for 2.5-inch drives and fans, which will strip a standoff if you force them in. Count out nine before you start.
 
    <img src="images/motherboard-screw.jpg" alt="A single flanged-head motherboard mounting screw on the bench" width="260"> <img src="images/screw-on-standoff.jpg" alt="A motherboard screw tightened through the board into a standoff, next to the JFP1, JFP2, JBAT1, JARGB_V2_2 and JARGB_V2_3 headers" width="400">
@@ -105,10 +110,6 @@ have far fewer things to suspect.
    On the right is what a correctly fitted screw looks like once the board is in: the flange bears on the bare metal ring around the mounting hole, not on any trace or component, and the standoff underneath carries the board clear of the tray. That bare ring is the ground contact, which is why nothing goes between it and the screw.
 
    This close view also shows the headers you will be reaching for in steps 10 and 11, all clustered along the same edge: `JFP1` for the power switch, `JFP2`, the `JBAT1` CMOS jumper, and two of the addressable RGB headers, `JARGB_V2_2` and `JARGB_V2_3`. Either RGB header will do for the case lighting.
-
-   <img src="images/case-rear-io.jpg" alt="Rear of the case showing the motherboard's port cluster filling the cutout with no separate shield fitted" width="430"> <img src="images/case-board-mounted.jpg" alt="The motherboard and cooler installed in the case, seen from the open side panel" width="430">
-
-   The left photo shows the rear of the case with the board's port cluster filling the cutout. The right photo is what the case looks like at the end of step 8, once the board is in. Nothing is wired yet.
 
 7. **Connect the modular cables to the PSU, then mount it.**
    - Attach the cables you will need to the MSI MAG A1000GL PCIE5 **before** it goes in the case. There is far more room to work now than there will be once it is bolted into the basement.
