@@ -187,3 +187,7 @@ have far fewer things to suspect.
     <img src="images/gpu-support-bracket.jpg" alt="The adjustable support post extended up to meet the underside of the graphics card" width="480">
 
     Extend the post until it just touches the underside of the card, then stop. It is there to carry the weight, not to push the card back up: forcing it will lever the edge connector in the slot.
+
+15. **Finish up.**
+    - Take photos of the finished build for your own reference.
+    - The system is now ready to demonstrate to the professor.
