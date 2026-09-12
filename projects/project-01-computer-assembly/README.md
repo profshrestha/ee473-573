@@ -150,26 +150,20 @@ have far fewer things to suspect.
 
 12. **Connect the display and power.**
     - Connect the monitor to the **motherboard's HDMI port**. There is no graphics card in the system yet, so the display runs off the CPU's integrated graphics.
-    - Connect keyboard and mouse.
+    - Check for loose screws or tools inside the case.
     - Connect the power cord to the PSU and switch the PSU's rocker on.
 
 13. **First boot and BIOS check.**
     - Power on. Confirm the system POSTs and shows the motherboard splash screen.
-    - Enter BIOS and confirm the CPU, both memory modules (correct total capacity), and the SSD are all detected.
-    - **Enable the memory's EXPO profile.** Until you do, DDR5 runs at its JEDEC default of 4800 MT/s rather than the 6000 the kit is rated for, no matter which slots you used.
-    - Set the system date and time. A new board comes up at its firmware default, which is years out.
-    - If the board does not POST, the `EZ Debug LED` block (BOOT / VGA / DRAM / CPU) shows which subsystem it stalled on, and the two-digit POST code display narrows it further.
 
     <img src="images/bios-ez-mode.jpg" alt="MSI Click BIOS X EZ Mode showing the board, CPU, DRAM slot occupancy, storage, and fan speeds" width="820">
 
-    MSI's `Click BIOS X` opens in `EZ Mode`, which is the fastest way to check your work. Read down the right-hand column:
+    Read down the right-hand column:
 
     - **CPU**: `AMD Ryzen 9 9900X 12-Core Processor`. The board recognises the chip.
     - **DRAM**: `A1 Empty`, `A2 G.SKILL 16384 MB`, `B1 Empty`, `B2 G.SKILL 16384 MB`, totalling `32768 MB`. This is the check on step 2. Two populated slots, one per channel, both in the far position, with the near slots empty. If your `A1` and `A2` were filled instead of `A2` and `B2`, the total would look identical and only this screen would tell you.
     - **Storage**: `M2_1  CT1000T705SSD3`. The T705 is detected in the Gen 5 slot from step 3. Every `SATA` line reads `Not Present`, which is correct since this build has no SATA drives.
     - **Fan Profile**: `CPU Fan 1` and `SYS Fan 1` both turning. A fan reading `N/A` is a header with nothing plugged into it.
-
-    Note that `Memory Info` reads `DDR5-4800 MT/s` and the `Memory` selector at the top still says `Standard`. That is the JEDEC default, not the DDR5-6000 the kit is rated for. Switch that selector to the EXPO profile and reboot, then come back and confirm the speed has changed. Until you do, you have paid for memory you are not using.
 
     - Power down fully and switch the PSU off before opening the case again.
 
@@ -193,7 +187,3 @@ have far fewer things to suspect.
     <img src="images/gpu-support-bracket.jpg" alt="The adjustable support post extended up to meet the underside of the graphics card" width="480">
 
     Extend the post until it just touches the underside of the card, then stop. It is there to carry the weight, not to push the card back up: forcing it will lever the edge connector in the slot.
-    - Move the monitor cable from the motherboard to the **graphics card's** output, then boot again and confirm the card is detected.
-
-15. **Close up the case.**
-    - Once the system boots successfully with the card in, do a final check for loose screws or tools inside, then refit both side panels.
