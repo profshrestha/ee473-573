@@ -9,27 +9,24 @@
 - PSU: MSI MAG A1000GL PCIE5 (1000W)
 - Case: LIAN LI LANCOOL 216 E-ATX
 
-Build order matters here. The CPU, memory, SSD, and cooler all go onto the motherboard while
-it is still on the bench, because the cooler overhangs the memory slots and the M.2 socket
-once it is mounted. The case does not come out of its box until step 6.
+Two things about the order below are deliberate.
+
+Everything that mounts on the motherboard goes on while the board is still on the bench, in
+steps 2 to 5, because the cooler overhangs both the memory slots and the M.2 socket once it
+is fitted. The case does not come out of its box until step 6.
+
+The first boot in step 14 runs on the CPU's integrated graphics through the motherboard's
+HDMI port, with no graphics card fitted. The RTX 5080 goes in afterwards, in step 15. Getting
+the base system to POST before adding a 360 W card means that if something does go wrong, you
+have far fewer things to suspect.
 
 ## Instructions
 
 1. **Prepare your workspace.** Work on a hard, non-carpeted surface. Wear an anti-static wrist strap, or regularly touch an unpainted metal surface to discharge static before handling components. Keep all component boxes and manuals nearby.
 
-2. **Install the CPU.**
-   - Unlock the motherboard's CPU socket lever and lift the retention arm.
-   - Align the gold triangle/notch on the AMD Ryzen 9 9900X with the triangle on the socket.
-   - Lower the CPU straight down with no force. It should drop in flush.
-   - Close the retention arm and lever to lock the CPU in place.
-
-   <img src="images/cpu-in-open-socket.jpg" alt="AMD Ryzen 9 9900X resting in the open AM5 socket, retention bracket swung clear" height="300"> <img src="images/cpu-socket-latched.jpg" alt="Load plate closed down over the seated Ryzen 9 9900X before the lever is locked" height="300">
-
-   The CPU sits flat in the open socket on the left, and the load plate is closed over it on the right. Do not press down on the CPU itself at any point.
-
-3. **Install the memory.**
+2. **Install the memory.**
    - The kit is two 16 GB DDR5-6000 modules rated CL30-38-38-96 at 1.35 V, with an EXPO profile. Check the label before you start.
-   - Use **DIMMA2 and DIMMB2**, the 2nd and 4th slots counting from the CPU. The board silkscreens exactly these two as `FIRST` beside the slots.
+   - Use **DIMMA2 and DIMMB2**, the 2nd and 4th slots counting from the CPU socket. The board silkscreens exactly these two as `FIRST` beside the slots.
    - One module per channel is what gives you dual-channel operation. Putting both in the same channel halves your memory bandwidth and nothing will warn you.
    - Using the far slot of each channel also matters electrically. The traces run from the CPU through the first slot to the second, so leaving the end slot empty creates an unterminated stub that reflects signal. That is often the difference between the EXPO profile training and failing.
    - Open the retaining clip on each slot, line up the off-centre notch in the module's contact edge, and press straight down on both ends until the clips snap shut. It takes more force than you expect.
@@ -42,7 +39,7 @@ once it is mounted. The case does not come out of its box until step 6.
 
    Note in the last photo that the populated slots are the 2nd and 4th, with an empty slot between them and another at the end. That is correct.
 
-4. **Install the M.2 NVMe SSD.**
+3. **Install the M.2 NVMe SSD.**
    - The drive is a Crucial T705, a PCIe Gen 5 NVMe M.2 SSD.
    - Use `M2_1`, the CPU-connected Gen 5 slot beside the memory slots. It is the only slot that will run this drive at full Gen 5 speed. The board silkscreens each M.2 slot with its source (`CPU` or `CHIPSET`) and which interfaces it supports, so read the labels rather than guessing.
    - Remove the M.2 heatsink/shield covering that slot.
@@ -56,6 +53,16 @@ once it is mounted. The case does not come out of its box until step 6.
    <img src="images/m2-shields.jpg" alt="M.2 heatsink shields in place, with the M2_2 CPU and M2_3 CHIPSET slot labels silkscreened on the board" width="780">
 
    <img src="images/m2-thermal-pad-film.jpg" alt="Protective films printed with REMOVE covering the M.2 thermal pads" height="330"> <img src="images/ssd-installed.jpg" alt="Crucial T705 seated in the M2_1 slot and held by the retention clip" height="330">
+
+4. **Install the CPU.**
+   - Unlock the motherboard's CPU socket lever and lift the retention arm.
+   - Align the gold triangle/notch on the AMD Ryzen 9 9900X with the triangle on the socket.
+   - Lower the CPU straight down with no force. It should drop in flush.
+   - Close the retention arm and lever to lock the CPU in place.
+
+   <img src="images/cpu-in-open-socket.jpg" alt="AMD Ryzen 9 9900X resting in the open AM5 socket, retention bracket swung clear" height="300"> <img src="images/cpu-socket-latched.jpg" alt="Load plate closed down over the seated Ryzen 9 9900X before the lever is locked" height="300">
+
+   The CPU sits flat in the open socket on the left, and the load plate is closed over it on the right. Do not press down on the CPU itself at any point.
 
 5. **Install the CPU cooler.**
    - Lay the kit out first. The box also contains Intel LGA115x/1200 hardware you will not use on this build, so set it aside to avoid confusion.
@@ -80,51 +87,61 @@ once it is mounted. The case does not come out of its box until step 6.
 
    <img src="images/fan-cable-connect.jpg" alt="Fan cables routed down to the CPU_FAN1 header beside PUMP_SYS1 and SYS_FAN1" height="360">
 
-6. **Unbox the case and remove both side panels.** Set aside the screw packs and standoffs that came with it.
-
-7. **Check the case standoffs.**
+6. **Unbox the case and check the standoffs.**
+   - Remove both side panels and set aside the screw packs that came with the case.
    - **There is no separate I/O shield to install.** On this board the shield is built into the rear I/O shroud and comes pre-attached from the factory. Older boards shipped a loose stamped-metal shield that had to be pressed into the case first; this one does not, so do not go looking for one in the box.
-   - Confirm the standoffs in the case line up with the motherboard's screw holes, and add or relocate standoffs as needed.
-   - Just as important, make sure there is **no** standoff anywhere the board has no matching hole. A stray standoff under the board can short traces on the underside when everything is screwed down.
+   - **Standoffs** are the small pillars that thread into the motherboard tray. The board never touches the tray directly: the standoffs hold it clear so the solder joints on the underside cannot short against the metal, and the screw-through-standoff path is also how the board grounds to the chassis. For that reason, never put insulating washers between the board and a standoff.
+   - This case ships with standoffs already fitted for a standard ATX layout, which is what this board is. The extra bare threaded holes in the tray are alternate positions for other board sizes, and should be left empty.
+   - Hold the board over the tray and confirm a standoff sits under **every** one of its nine mounting holes, and that **no** standoff sits anywhere the board has no hole. A stray standoff presses into the underside of the PCB and shorts it, and the only symptom is a machine that will not POST.
+
+7. **Connect the modular cables to the PSU, then mount it.**
+   - Attach the cables you will need to the MSI MAG A1000GL PCIE5 **before** it goes in the case. There is far more room to work now than there will be once it is bolted into the basement.
+   - You need: the 24-pin motherboard cable, **two** CPU/EPS cables, a SATA power cable for the case, and the native 12V-2x6 cable for the graphics card later.
+   - Mount the PSU in its bay with the fan facing a vent, and secure it with the four screws.
 
 8. **Mount the motherboard in the case.**
-   - Lower the motherboard in at an angle so the rear ports and their attached shield line up with the case cutout, then lay it flat onto the standoffs.
-   - Secure with screws in a crisscross pattern, snug but not overtightened.
+   - Lower the board in at an angle so the rear ports and their attached shield line up with the case cutout, then lay it flat onto the standoffs.
+   - Fit all **nine** screws. Start them all by hand before tightening any, then tighten in a crisscross pattern so the board seats flat. Snug only: these thread into thin sheet metal and the PCB is brittle.
 
-9. **Install the power supply.**
-   - Mount the MSI MAG A1000GL PCIE5 in the PSU bay (fan facing down toward a vent, or up if the case has no bottom vent) and secure with the four included screws.
+9. **Connect PSU power to the motherboard.**
+   - Connect **both** CPU power cables to the two 8-pin EPS connectors along the top edge of the board. The 9900X pulls enough that both should be populated.
+   - Connect the 24-pin cable to `ATX_PWR1` on the right edge. It only goes in one way, and it takes a firm push to latch.
 
-10. **Connect motherboard power cables.**
-    - Connect the 24-pin ATX cable from the PSU to the motherboard.
-    - Connect the 8-pin (4+4) EPS CPU power cable from the PSU to the motherboard's CPU power connector near the top.
+10. **Connect the front-panel cables from the case.**
+    - Two front USB cables to their headers (`JUSB` / `JAUSB`).
+    - Front audio to `JAUD1`.
+    - The power switch lead to `JFP1`. Check the pin legend in the motherboard manual, since this header carries the power and reset switches and the LEDs in a specific arrangement.
+    - These connectors are small, stiff, and located along the bottom and right edges. Doing them now, before the case fills up with cabling, is much easier.
 
-11. **Install the GPU.**
-    - Remove the appropriate rear expansion slot covers on the case for a double/triple-slot card.
-    - Open the primary PCIe x16 slot latch, align the RTX 5080's connector with the slot, and press down firmly until the latch clicks and the card is seated flush.
-    - Screw the GPU bracket into the case.
-    - Connect the required PCIe power cable(s) from the PSU to the GPU (check the card for the number of connectors required).
-    - If the case includes a GPU support bracket, install it to prevent sag.
+11. **Connect case power, lighting, and fans.**
+    - A SATA power lead from the PSU to the case, which powers the LANCOOL 216's fan and lighting hub.
+    - The case's addressable RGB lead to `JARGB_V2`.
+    - The case fan connector to a `SYS_FAN` header.
 
-12. **Connect case fans and front-panel connectors.**
-    - Connect any case fans (pre-installed in the LANCOOL 216) to available `SYS_FAN` headers on the motherboard, or to a fan hub if provided.
-    - Connect the front-panel header cables (power switch, reset switch, power LED, HDD LED) to the motherboard's front-panel header, matching pin labels in the motherboard manual.
-    - Connect front-panel USB and audio headers to their corresponding motherboard headers.
+12. **Cable management.**
+    - Route cables through the case's channels and behind the motherboard tray wherever possible.
+    - Use zip ties or the case's built-in straps to pull loose cable away from any fan blades.
 
-13. **Cable management.**
-    - Route cables through the case's cable-routing channels and behind the motherboard tray where possible.
-    - Use zip ties or the case's built-in cable straps to secure loose cables away from fans.
+13. **Connect the display and power.**
+    - Connect the monitor to the **motherboard's HDMI port**. There is no graphics card in the system yet, so the display runs off the CPU's integrated graphics.
+    - Connect keyboard and mouse.
+    - Connect the power cord to the PSU and switch the PSU's rocker on.
 
-14. **Final check before power-on.**
-    - Verify RAM, GPU, and CPU cooler are fully seated.
-    - Verify 24-pin, EPS, and GPU power cables are all connected.
-    - Verify no tools or loose screws are inside the case.
+14. **First boot and BIOS check.**
+    - Power on. Confirm the system POSTs and shows the motherboard splash screen.
+    - Enter BIOS and confirm the CPU, both memory modules (correct total capacity), and the SSD are all detected.
+    - **Enable the memory's EXPO profile.** Until you do, DDR5 runs at its JEDEC default of 4800 MT/s rather than the 6000 the kit is rated for, no matter which slots you used.
+    - If the board does not POST, the `EZ Debug LED` block (BOOT / VGA / DRAM / CPU) shows which subsystem it stalled on, and the two-digit POST code display narrows it further.
+    - Power down fully and switch the PSU off before opening the case again.
 
-15. **First boot.**
-    - Connect a monitor to the GPU's video output (not the motherboard's).
-    - Connect keyboard, mouse, and power cable, then power on.
-    - Confirm the system POSTs (displays the motherboard splash screen), then enter BIOS to confirm the CPU, RAM (correct speed/capacity), and storage are all detected.
-    - **Enable the memory's EXPO profile in BIOS.** Until you do, DDR5 runs at its JEDEC default of 4800 MT/s rather than the 6000 the kit is rated for, no matter which slots you used.
-    - If the board fails to POST, the `EZ Debug LED` block (BOOT / VGA / DRAM / CPU) tells you which subsystem it stalled on, and the two-digit POST code display narrows it further.
+15. **Install the graphics card.**
+    - Remove the rear expansion slot covers the card needs.
+    - Open the latch on the top PCIe x16 slot, line the card's edge connector up with the slot, and press down evenly until the latch clicks and the bracket sits flush. Screw the bracket to the case.
+    - **Power it with the PSU's native 12V-2x6 cable**, the 16-pin one rated for 600 W. Do **not** use the 8-pin adapter that came in the graphics card box: that adapter exists for older ATX 2.x supplies with no 16-pin cable, and it needs three 8-pin feeds because its sense pins report the available power. Your PSU has the proper cable, and using it means fewer connections and less contact resistance.
+    - **Seat the connector completely.** Push until it clicks. A partially seated 12V-2x6 plug concentrates the whole current through one or two contacts, which is the cause behind essentially every melted-connector story. MSI's cable is dual-colour for exactly this reason: **if you can still see the yellow band, it is not fully home.**
+    - Give the cable about 35 mm of straight run before any bend, so the strain does not lift contacts inside the plug.
+    - If the case has a GPU support bracket, fit it now to stop the card sagging.
+    - Move the monitor cable from the motherboard to the **graphics card's** output, then boot again and confirm the card is detected.
 
 16. **Close up the case.**
-    - Once the system boots successfully, reattach both side panels.
+    - Once the system boots successfully with the card in, do a final check for loose screws or tools inside, then refit both side panels.
