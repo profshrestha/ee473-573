@@ -108,6 +108,14 @@ have far fewer things to suspect.
    - Connect the 24-pin cable to `ATX_PWR1` on the right edge. It only goes in one way, and it takes a firm push to latch.
    - Route the **native 12V-2x6 cable** now as well, from the PSU up through the cable cutout to where the graphics card will sit. Leave the card end unconnected until step 15. This is the PSU's own 16-pin cable rated for 600 W, not the 3 × 8-pin adapter that came in the graphics card box. Routing it at this stage is far easier than threading it past an installed card later.
 
+   <img src="images/psu-modular-panel.jpg" alt="Modular panel of the MSI MAG A1000GL with every socket group labelled: 12V-2x6, CPU and PCI-e, SATA and MOLEX" width="780">
+
+   The modular panel is labelled by group, and the cables are not interchangeable between groups even where the plugs physically fit. `12V-2x6` on the far left is the single 16-pin socket for the graphics card, and its cable carries a `600W` tag on the plug. The four `CPU & PCI-e` sockets feed the two EPS cables and any 8-pin PCIe cables. `SATA & MOLEX` on the right feeds the case hub in step 11. The 24-pin motherboard cable uses the wide socket in the middle.
+
+   <img src="images/psu-mounted.jpg" alt="The PSU installed in the case basement with its AC inlet and rocker switch at the rear" width="780">
+
+   The PSU sits in the basement with its fan facing the vent in the floor of the case, which is why the MSI logo on its side reads upside down from inside. The AC inlet and the rocker switch end up at the rear, reachable from outside once the build is done.
+
 10. **Connect the front-panel cables from the case.**
     - Two front USB cables to their headers (`JUSB` / `JAUSB`).
     - Front audio to `JAUD1`.
