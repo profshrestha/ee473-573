@@ -72,8 +72,8 @@ have far fewer things to suspect.
 
 5. **Install the CPU cooler.**
    - Lay the kit out first so you can see what you have: the dual-tower heatsink, two 120 mm fans with their wire clips, the two mounting bars, a bag of screws and red standoffs, the thermal paste syringe, and the fan Y-splitter cable.
-   - The mounting bars are stamped **AM4**. That is correct. AM4 and AM5 share the same cooler mounting pattern, so one bracket covers both sockets.
-   - Screw the four red AM5 standoffs onto the board's mounting posts at the corners of the socket.
+   - The mounting bars are stamped **AM4**. That is correct.
+   - Place four standoffs.
    - Lay the two mounting bars across the socket and tighten them down onto the standoffs.
    - Apply thermal paste: a pea-sized dot or a short line across the middle of the heat spreader. Do not spread it by hand. Clamping pressure spreads it far more evenly than you can.
    - Lower the heatsink squarely onto the CPU with its bracket over the two bars, then tighten the two captive spring screws **alternately**, a few turns on each side at a time, until they bottom out. Tightening one side fully first will cock the cooler and give you uneven contact.
