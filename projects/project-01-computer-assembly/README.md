@@ -28,7 +28,7 @@ have far fewer things to suspect.
    - The kit is two 16 GB DDR5-6000 modules rated CL30-38-38-96 at 1.35 V, with an EXPO profile. Check the label before you start.
    - Use **DIMMA2 and DIMMB2**, the 2nd and 4th slots counting from the CPU socket. The board silkscreens exactly these two as `FIRST` beside the slots.
    - One module per channel is what gives you dual-channel operation. Putting both in the same channel halves your memory bandwidth and nothing will warn you.
-   - Using the far slot of each channel also matters electrically. The traces run from the CPU through the first slot to the second, so leaving the end slot empty creates an unterminated stub that reflects signal. That is often the difference between the EXPO profile training and failing.
+   - Using the far slot of each channel also matters electrically. MSI recommends A2/B2 for a two-DIMM configuration, and this arrangement generally provides the best memory compatibility and stability.
    - Open the retaining clip on each slot, line up the off-centre notch in the module's contact edge, and press straight down on both ends until the clips snap shut. It takes more force than you expect.
 
    <img src="images/ram-kit.jpg" alt="Two G.SKILL Trident Z5 Neo RGB modules in packaging with the DDR5-6000 CL30 EXPO spec label visible" height="280">
