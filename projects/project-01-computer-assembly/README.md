@@ -96,7 +96,9 @@ have far fewer things to suspect.
 6. **Unbox the case and mount the motherboard.**
    - Remove both side panels and set aside the screw packs that came with the case.
    - **Standoffs** are the small pillars that thread into the motherboard tray. The board never touches the tray directly: the standoffs hold it clear so the solder joints on the underside cannot short against the metal, and the screw-through-standoff path is also how the board grounds to the chassis. For that reason, never put insulating washers between the board and a standoff.
-   - This case ships with standoffs already fitted for a standard ATX layout, which is what this board is. The extra bare threaded holes in the tray are alternate positions for other board sizes, and should be left empty.
+   - **This build uses the case's air cooling position.** The LANCOOL 216 can mount the board at either of two heights: a lower one that leaves clearance for a radiator across the top, and an upper one for tall air coolers. The Peerless Assassin needs the upper one, so two things have to change before the board goes in. Do both of them now, while the tray is empty.
+   - **Relocate the standoffs.** Use the standoff socket tool included with the case to unscrew the standoffs from the tray, then screw them into the upper set of mounting holes, labelled `Air Cooling` or `ATX`.
+   - **Flip the rear I/O panel.** Unscrew the modular rear I/O plate on the back of the chassis, turn it 180 degrees, and screw it back in. This realigns the motherboard cutout and the expansion slots with the higher board position.
    - Hold the board over the tray and confirm a standoff sits under **every** one of its nine mounting holes.
 
    <img src="images/case-board-mounted.jpg" alt="The motherboard and cooler installed in the case, seen from the open side panel" width="430"> <img src="images/case-rear-io.jpg" alt="Rear of the case showing the motherboard's port cluster filling the cutout" width="430">
@@ -104,6 +106,7 @@ have far fewer things to suspect.
    The left photo is what the case looks like once the board is down on the standoffs. The right photo is the same board seen from the rear of the case, with its port cluster filling the cutout. Nothing is wired yet in either.
 
    - Lower the board in at an angle so the rear ports and their attached shield line up with the case cutout, then lay it flat onto the standoffs.
+   - Before fitting any screws, check the alignment. The central standoff has a locating pin that should engage the centre mounting hole on the board, and the rear ports should sit cleanly in the flipped I/O cutout. If either is off, the standoffs or the I/O plate are still in the wrong position.
    - Find the motherboard screws in the case's screw pack. They have a wide flanged head and a coarse thread. Do not confuse them with the finer M3 screws used for 2.5-inch drives and fans, which will strip a standoff if you force them in. Count out nine before you start.
 
    <img src="images/motherboard-screw.jpg" alt="A single flanged-head motherboard mounting screw on the bench" width="260"> <img src="images/screw-on-standoff.jpg" alt="A motherboard screw tightened through the board into a standoff, next to the JFP1, JFP2, JBAT1, JARGB_V2_2 and JARGB_V2_3 headers" width="400">
