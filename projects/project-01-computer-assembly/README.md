@@ -62,9 +62,13 @@ have far fewer things to suspect.
    - Lower the CPU straight down with no force. It should drop in flush.
    - Close the retention arm and lever to lock the CPU in place.
 
-   <img src="images/cpu-in-open-socket.jpg" alt="AMD Ryzen 9 9900X resting in the open AM5 socket, retention bracket swung clear" height="300"> <img src="images/cpu-socket-latched.jpg" alt="Load plate closed down over the seated Ryzen 9 9900X before the lever is locked" height="300">
+   <img src="images/cpu-in-open-socket.jpg" alt="The board on the bench with both memory modules and the M.2 SSD already installed, and the Ryzen 9 9900X sitting flat in the open AM5 socket with the retention bracket swung clear" width="820">
 
-   The CPU sits flat in the open socket on the left, and the load plate is closed over it on the right. Do not press down on the CPU itself at any point.
+   This is what the board should look like at this point: memory in `DIMMA2` and `DIMMB2` from step 2, the T705 under its shield from step 3, and the 9900X now sitting flat in the open socket. Note the small gold triangle at the lower-left corner of the CPU, which lines up with the matching mark on the socket frame.
+
+   <img src="images/cpu-socket-latched.jpg" alt="Load plate closed down over the seated Ryzen 9 9900X before the lever is locked" width="480">
+
+   Close the load plate over the CPU and lock the lever. Do not press down on the CPU itself at any point.
 
 5. **Install the CPU cooler.**
    - Lay the kit out first. The box also contains Intel LGA115x/1200 hardware you will not use on this build, so set it aside to avoid confusion.
