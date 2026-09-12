@@ -66,9 +66,9 @@ have far fewer things to suspect.
 
    This is what the board should look like at this point: memory in `DIMMA2` and `DIMMB2` from step 2, the T705 under its shield from step 3, and the 9900X now sitting flat in the open socket. Note the small gold triangle at the lower-left corner of the CPU, which lines up with the matching mark on the socket frame.
 
-   <img src="images/cpu-socket-latched.jpg" alt="Load plate closed down over the seated Ryzen 9 9900X before the lever is locked" width="480">
+   <img src="images/cpu-socket-latched.jpg" alt="Close view of the AM5 socket with the load plate closed over the seated Ryzen 9 9900X, part number and AM5 marking visible" width="820">
 
-   Close the load plate over the CPU and lock the lever. Do not press down on the CPU itself at any point.
+   Close the load plate over the CPU and lock the lever. The plate presses on the raised edge of the CPU, not on the die, so the closing force is normal and expected. Do not press down on the CPU itself at any point.
 
 5. **Install the CPU cooler.**
    - Lay the kit out first. The box also contains Intel LGA115x/1200 hardware you will not use on this build, so set it aside to avoid confusion.
