@@ -48,11 +48,13 @@ have far fewer things to suspect.
    - This board uses a toolless retention clip rather than a screw. With the drive pressed flat, the clip latches over the end notch. No screwdriver needed. If the clip will not catch, the drive is not fully seated in the connector.
    - Reattach the heatsink/shield.
 
-   <img src="images/ssd-kit.jpg" alt="Crucial T705 PCIe Gen 5 NVMe M.2 SSD in its packaging" height="260"> <img src="images/m2-slot-empty.jpg" alt="Empty M.2 socket showing the toolless retention clip" height="260">
+   <img src="images/ssd-kit.jpg" alt="Crucial T705 PCIe Gen 5 NVMe M.2 SSD in its packaging" height="280">
 
    <img src="images/m2-shields.jpg" alt="M.2 heatsink shields in place, with the M2_2 CPU and M2_3 CHIPSET slot labels silkscreened on the board" width="780">
 
-   <img src="images/m2-thermal-pad-film.jpg" alt="Protective films printed with REMOVE covering the M.2 thermal pads" height="330"> <img src="images/ssd-installed.jpg" alt="Crucial T705 seated in the M2_1 slot and held by the retention clip" height="330">
+   <img src="images/m2-thermal-pad-film.jpg" alt="Protective films printed with REMOVE covering the M.2 thermal pads" height="300"> <img src="images/m2-slot-empty.jpg" alt="Empty M.2 socket showing the toolless retention clip" height="300">
+
+   <img src="images/ssd-installed.jpg" alt="Crucial T705 seated in the M2_1 slot and held by the retention clip" width="780">
 
 4. **Install the CPU.**
    - Unlock the motherboard's CPU socket lever and lift the retention arm.
