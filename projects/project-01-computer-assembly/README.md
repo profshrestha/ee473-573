@@ -190,10 +190,6 @@ have far fewer things to suspect.
     - **Seat the connector completely.** Push until it clicks. Make sure the 12V-2x6 connector is fully inserted and securely latched. An incompletely seated connector can increase contact resistance and create excessive localized heating. MSI's cable is dual-colour for exactly this reason: **if you can still see the yellow band, it is not fully home.**
     - Give the cable about 35 mm of straight run before any bend, so the strain does not lift contacts inside the plug.
 
-    <img src="images/gpu-power-connected.jpg" alt="The sleeved 12V-2x6 cable plugged into the connector on the top edge of the RTX 5080" width="400">
-
-    The cable enters the connector on the card's top edge and runs straight up before it turns toward the cable cutout. Note how much clearance the side panel leaves above the card: that is the space the cable has to make its bend in, and it is why the run is straight for the first inch or so rather than turning at the plug.
-
 15. **Finish up.**
     - Take photos of the finished build for your own reference.
     - The system is now ready to demonstrate to the professor.
