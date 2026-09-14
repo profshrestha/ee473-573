@@ -1,4 +1,4 @@
-# Project 1: Computer Assembly
+# Computer Assembly Instructions
 
 - CPU: AMD Ryzen 9 9900X (AM5)
 - Motherboard: MSI MAG X870 TOMAHAWK WIFI
