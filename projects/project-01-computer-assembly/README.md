@@ -141,6 +141,10 @@ have far fewer things to suspect.
    - Connect the 24-pin cable to `ATX_PWR1` on the right edge. It only goes in one way, and it takes a firm push to latch.
    - Route the **native 12V-2x6 cable** now as well, from the PSU up through the cable cutout to where the graphics card will sit. Leave the card end unconnected until step 14. This is the PSU's own 16-pin cable rated for 600 W, not the 3 × 8-pin adapter that came in the graphics card box. Routing it at this stage is far easier than threading it past an installed card later.
 
+   <img src="images/gpu-installed-interior.jpg" alt="The routed 12V-2x6 cable plugged into the RTX 5080 once it is installed in step 14, showing where the cable ends up" width="480">
+
+   Where that routed cable ends up once the card goes in during step 14 — leave it unconnected at this stage, just get it up to this area.
+
 9. **Connect the front-panel cables from the case.**
     - Two front USB cables to their headers (`JUSB` / `JAUSB`).
     - Front audio to `JAUD1`.
