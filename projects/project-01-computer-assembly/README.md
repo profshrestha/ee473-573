@@ -174,9 +174,9 @@ have far fewer things to suspect.
     - Remove the rear expansion slot covers the card needs.
     - Open the latch on the top PCIe x16 slot, line the card's edge connector up with the slot, and press down evenly until the latch clicks and the bracket sits flush. Screw the bracket to the case.
 
-    <img src="images/pcie-slot-empty.jpg" alt="The PCIe slots and rear expansion slot covers before the graphics card is fitted" width="400"> <img src="images/gpu-installed.jpg" alt="The RTX 5080 seated in the top PCIe x16 slot with its bracket screwed to the case" width="480">
+    <img src="images/gpu-installed-rear.jpg" alt="Rear of the case with the graphics card's bracket screwed in, its PCB visible through the open expansion slot below the vented top panel" width="400"> <img src="images/gpu-installed-interior.jpg" alt="The RTX 5080 seated in the top PCIe x16 slot beneath the CPU cooler, with its bracket screwed to the case" width="480">
 
-    Before and after. Use the **top** x16 slot: it is the only one wired to the CPU at full width, and the lower slots run at reduced lanes off the chipset. The card is three slots thick, so it covers the second x16 slot entirely, which is expected and not a mistake.
+    Rear and interior views of the seated card. Use the **top** x16 slot: it is the only one wired to the CPU at full width, and the lower slots run at reduced lanes off the chipset. The card is three slots thick, so it covers the second x16 slot entirely, which is expected and not a mistake.
     - **Power it with the PSU's native 12V-2x6 cable**, the 16-pin one rated for 600 W. Do **not** use the 8-pin adapter that came in the graphics card box: that adapter exists for older ATX 2.x supplies with no 16-pin cable, and it needs three 8-pin feeds because its sense pins report the available power. Your PSU has the proper cable, and using it means fewer connections and less contact resistance.
     - **Seat the connector completely.** Push until it clicks. Make sure the 12V-2x6 connector is fully inserted and securely latched. An incompletely seated connector can increase contact resistance and create excessive localized heating. MSI's cable is dual-colour for exactly this reason: **if you can still see the yellow band, it is not fully home.**
     - Give the cable about 35 mm of straight run before any bend, so the strain does not lift contacts inside the plug.
@@ -184,12 +184,6 @@ have far fewer things to suspect.
     <img src="images/gpu-power-connected.jpg" alt="The sleeved 12V-2x6 cable plugged into the connector on the top edge of the RTX 5080" width="400">
 
     The cable enters the connector on the card's top edge and runs straight up before it turns toward the cable cutout. Note how much clearance the side panel leaves above the card: that is the space the cable has to make its bend in, and it is why the run is straight for the first inch or so rather than turning at the plug.
-
-    - Fit the card's support bracket now to stop it sagging. The 5080 is a heavy three-slot card, and over months the weight works on the PCIe slot and the card's own PCB.
-
-    <img src="images/gpu-support-bracket.jpg" alt="The adjustable support post extended up to meet the underside of the graphics card" width="480">
-
-    Extend the post until it just touches the underside of the card, then stop. It is there to carry the weight, not to push the card back up: forcing it will lever the edge connector in the slot.
 
 15. **Finish up.**
     - Take photos of the finished build for your own reference.
