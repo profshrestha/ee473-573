@@ -31,6 +31,17 @@ every conversion picks up the displacement term $d$. The three-frame sketch is t
 the same point $p$ has a description in frames 0, 1, and 2, and the vectors $d^0_1$, $d^1_2$, and
 $d^0_2$ are what tie them together.
 
+Substituting the frame-1 description of $p$ into the frame-0 one carries that through:
+
+$$\begin{aligned}
+p^0 &= R^0_1\,p^1 + d^0_1 \\[2pt]
+    &= R^0_1\left(R^1_2\,p^2 + d^1_2\right) + d^0_1 \\[2pt]
+    &= R^0_1 R^1_2\,p^2 \;+\; R^0_1 d^1_2 + d^0_1
+\end{aligned}$$
+
+The last line splits cleanly into a rotation part and a displacement part, and that is where both
+composition rules come from: $R^0_2 = R^0_1 R^1_2$ and $d^0_2 = R^0_1 d^1_2 + d^0_1$.
+
 ---
 
 ## Board 2 — Packing R and d into one 4×4
