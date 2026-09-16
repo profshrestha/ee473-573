@@ -84,9 +84,8 @@ rotation of $\alpha$ about $x$, a translation of $b$ along $x$, a translation of
 a rotation of $\theta$ about $z$. Check each factor against Board 3 — the first carries
 $c\alpha / s\alpha$ in the lower-right block with an empty displacement column, the middle two
 carry the identity with $b$ and $d$ in the last column. Order matters throughout, since these
-matrices do not commute. Those four quantities — $\alpha, b, d, \theta$ — are the same four that
-become the Denavit–Hartenberg parameters in the next chapter, so this product is worth being able
-to expand from memory.
+matrices do not commute. Four parameters — $\alpha, b, d, \theta$ — are enough to carry one frame
+onto the next, so this product is worth being able to expand from memory.
 
 ---
 
