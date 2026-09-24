@@ -17,7 +17,7 @@ Check Canvas for deliverables, deadlines, and grading rubric.
 
 ---
 
-## Board 1 — Rotation, then rotation with displacement
+## Board 1: Rotation, then rotation with displacement
 
 $$p^0 = R^0_1\,p^1 \qquad \longrightarrow \qquad p^0 = R^0_1\,p^1 + d^0_1$$
 
@@ -44,7 +44,7 @@ composition rules come from: $R^0_2 = R^0_1 R^1_2$ and $d^0_2 = R^0_1 d^1_2 + d^
 
 ---
 
-## Board 2 — Packing R and d into one 4×4
+## Board 2: Packing R and d into one 4×4
 
 $$H^0_n = H^0_1 H^1_2 \cdots H^{n-1}_n$$
 
@@ -54,12 +54,12 @@ $$H^0_n = H^0_1 H^1_2 \cdots H^{n-1}_n$$
 $[0\ 0\ 0\ 1]$. The payoff is at the centre of the board: chaining frames is now just multiplying
 matrices in order, and the point itself is padded to four entries so a single multiplication does
 the rotation and the translation together. The inverse in the top right is **not** found by
-inverting the 4×4 numerically — the block structure gives it directly, as $R^{T}$ paired with
+inverting the 4×4 numerically. The block structure gives it directly, as $R^{T}$ paired with
 $-R^{T}d$.
 
 ---
 
-## Board 3 — The elementary transformations
+## Board 3: The elementary transformations
 
 Rotation only $\Rightarrow d = 0$ &nbsp;&nbsp;·&nbsp;&nbsp; Translation only $\Rightarrow R = I$
 
@@ -73,7 +73,7 @@ moved, the upper-left block tells you how the axes turned.
 
 ---
 
-## Board 4 — Four elementary transformations, multiplied out
+## Board 4: Four elementary transformations, multiplied out
 
 $$M = \mathrm{Rot}_{x,\alpha}\; \mathrm{Trans}_{x,b}\; \mathrm{Trans}_{z,d}\; \mathrm{Rot}_{z,\theta}$$
 
@@ -81,22 +81,22 @@ $$M = \mathrm{Rot}_{x,\alpha}\; \mathrm{Trans}_{x,b}\; \mathrm{Trans}_{z,d}\; \m
 
 **Figure 4.** The composition written out in full, one 4×4 per elementary motion, left to right: a
 rotation of $\alpha$ about $x$, a translation of $b$ along $x$, a translation of $d$ along $z$, and
-a rotation of $\theta$ about $z$. Check each factor against Board 3 — the first carries
+a rotation of $\theta$ about $z$. Check each factor against Board 3: the first carries
 $c\alpha / s\alpha$ in the lower-right block with an empty displacement column, the middle two
 carry the identity with $b$ and $d$ in the last column. Order matters throughout, since these
-matrices do not commute. Four parameters — $\alpha, b, d, \theta$ — are enough to carry one frame
+matrices do not commute. Four parameters ($\alpha, b, d, \theta$) are enough to carry one frame
 onto the next, so this product is worth being able to expand from memory.
 
 ---
 
-## Board 5 — Worked example: reading H off a frame sketch
+## Board 5: Worked example, reading H off a frame sketch
 
 Each entry of $R^0_1$ is the cosine of the angle between one axis of frame 1 and one axis of frame 0.
 
 ![Whiteboard worked example computing the rotation matrix from dot products of the axis unit vectors, evaluating them as cosines of ninety, zero, and one hundred eighty degrees, giving a numeric rotation matrix, with the displacement vector and a sketch of the two frames](figs/fig5-example.jpg)
 
 **Figure 5.** The whole method in one example. Each entry of $R^0_1$ is the dot product of one axis
-of frame 1 with one axis of frame 0 — and because both are unit vectors, that dot product is just
+of frame 1 with one axis of frame 0, and because both are unit vectors that dot product is just
 the cosine of the angle between them. From the sketch, every angle is 0°, 90°, or 180°, so the
 matrix fills with 1, 0, and −1 and no trigonometry is actually needed. Note the sign pattern: a −1
 says two axes point in opposite directions. The displacement is read straight off the diagram as
@@ -104,7 +104,7 @@ one unit along $z_0$, and dropping $R$ and $d$ into the block form completes $H^
 
 ---
 
-## Board 6 — The same example, built from elementary motions
+## Board 6: The same example, built from elementary motions
 
 $$H^0_1 = \mathrm{Rot}_{x,90}\; \mathrm{Rot}_{z,-90}\; \mathrm{Trans}_{x,-1}$$
 
@@ -114,5 +114,5 @@ $$H^0_1 = \mathrm{Rot}_{x,90}\; \mathrm{Rot}_{z,-90}\; \mathrm{Trans}_{x,-1}$$
 *builds* the same $H^0_1$ out of elementary moves. Follow the sketches right to left as the frame
 is carried into place: the black frame rotates 90° about $x$ to give the blue one, that rotates
 −90° about $z$ to give the red one, and a translation finishes the job. Multiply the three
-matrices from Board 3 in this order and you get back the numeric matrix at the top of the board —
+matrices from Board 3 in this order and you get back the numeric matrix at the top of the board,
 which is the check worth doing by hand, since it confirms the sketch and the algebra agree.

@@ -143,7 +143,7 @@ have far fewer things to suspect.
 
    <img src="images/gpu-installed-interior.jpg" alt="The routed 12V-2x6 cable plugged into the RTX 5080 once it is installed in step 14, showing where the cable ends up" width="480">
 
-   Where that routed cable ends up once the card goes in during step 14 — leave it unconnected at this stage, just get it up to this area.
+   Where that routed cable ends up once the card goes in during step 14. Leave it unconnected at this stage; just get it up to this area.
 
 9. **Connect the front-panel cables from the case.**
     - Two front USB cables to their headers (`JUSB` / `JAUSB`).
