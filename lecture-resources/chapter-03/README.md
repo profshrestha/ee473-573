@@ -46,8 +46,9 @@ $$A_i = \mathrm{Rot}_{z,\theta}\; \mathrm{Trans}_{z,d}\; \mathrm{Trans}_{x,a}\; 
 ![Whiteboard showing a forward kinematics block diagram taking joint variables to end-effector position and orientation, the homogeneous transformation in block form, the four-factor DH product with its steps numbered one through four, the two frame-assignment constraints, and sketches of the four elementary motions applied in sequence](figs/fig2-dh-convention.jpg)
 
 **Figure 2.** On the left, what forward kinematics is for: joint variables go in, the position and
-orientation of the end-effector come out, packaged in the usual block form
-$M = \begin{bmatrix} R & d \\ 0 & 1\end{bmatrix}$.
+orientation of the end-effector come out, packaged in the usual block form:
+
+$$M = \begin{bmatrix} R & d \\ 0 & 1 \end{bmatrix}$$
 
 The DH claim is the line below it. A general rigid transformation needs six parameters, three for
 rotation and three for translation. If you assign frames following a specific rule, four are
