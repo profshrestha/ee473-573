@@ -75,9 +75,9 @@ moved, the upper-left block tells you how the axes turned.
 
 ## Board 4: Four elementary transformations, multiplied out
 
-$$M = \mathrm{Rot}_{x,\alpha}\; \mathrm{Trans}_{x,b}\; \mathrm{Trans}_{z,d}\; \mathrm{Rot}_{z,\theta}$$
+$$H = \mathrm{Rot}_{x,\alpha}\; \mathrm{Trans}_{x,b}\; \mathrm{Trans}_{z,d}\; \mathrm{Rot}_{z,\theta}$$
 
-![Whiteboard showing a transformation M written as the product of four four-by-four matrices: a rotation of alpha about x, a translation of b along x, a translation of d along z, and a rotation of theta about z](figs/fig4-composition.jpg)
+![Whiteboard showing a transformation written as the product of four four-by-four matrices: a rotation of alpha about x, a translation of b along x, a translation of d along z, and a rotation of theta about z](figs/fig4-composition.jpg)
 
 **Figure 4.** The composition written out in full, one 4×4 per elementary motion, left to right: a
 rotation of $\alpha$ about $x$, a translation of $b$ along $x$, a translation of $d$ along $z$, and
