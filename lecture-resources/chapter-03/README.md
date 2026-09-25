@@ -49,7 +49,7 @@ $$A_i = \mathrm{Rot}_{z,\theta}\; \mathrm{Trans}_{z,d}\; \mathrm{Trans}_{x,a}\; 
 orientation of the end-effector come out, packaged in the usual block form:
 
 ```math
-M = \begin{bmatrix} R & d \\ 0 & 1 \end{bmatrix}
+H = \begin{bmatrix} R & d \\ 0 & 1 \end{bmatrix}
 ```
 
 The DH claim is the line below it. A general rigid transformation needs six parameters, three for
