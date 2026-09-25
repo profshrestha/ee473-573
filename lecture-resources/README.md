@@ -9,3 +9,4 @@ Check Canvas for the lecture schedule, deliverables, deadlines, and grading rubr
 | # | Chapter |
 |---|---------|
 | 2 | [Rigid Motions and Homogeneous Transformations](chapter-02/README.md) |
+| 3 | [Forward Kinematics and the Denavit-Hartenberg Convention](chapter-03/README.md) |
