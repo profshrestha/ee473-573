@@ -48,7 +48,9 @@ $$A_i = \mathrm{Rot}_{z,\theta}\; \mathrm{Trans}_{z,d}\; \mathrm{Trans}_{x,a}\; 
 **Figure 2.** On the left, what forward kinematics is for: joint variables go in, the position and
 orientation of the end-effector come out, packaged in the usual block form:
 
-$$M = \begin{bmatrix} R & d \\ 0 & 1 \end{bmatrix}$$
+```math
+M = \begin{bmatrix} R & d \\ 0 & 1 \end{bmatrix}
+```
 
 The DH claim is the line below it. A general rigid transformation needs six parameters, three for
 rotation and three for translation. If you assign frames following a specific rule, four are
