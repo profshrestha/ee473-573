@@ -108,7 +108,7 @@ Cartesian manipulator that translates along three mutually perpendicular axes.
 |---|---|---|---|---|
 | 1 | $-90$ | $l_1^{*}$ | 0 | $-90$ |
 | 2 | $90$ | $l_2^{*}$ | 0 | $-90$ |
-| 3 | 0 | $d_3^{*}$ | 0 | 0 |
+| 3 | 0 | $l_3^{*}$ | 0 | 0 |
 
 Compare this table against Board 3's and the pattern falls out. Every starred entry is in the $d$
 column, so every joint is prismatic. Every $a$ is zero, because consecutive axes intersect and
