@@ -16,3 +16,9 @@ Check Canvas for the lecture schedule, deliverables, deadlines, and grading rubr
 | Topic | Follows |
 |---|---------|
 | [Forward Kinematics: Product of Exponentials](product-of-exponentials/README.md) | Chapter 3 |
+
+## Homework
+
+| Set | Covers |
+|---|---------|
+| [Product of Exponentials](product-of-exponentials/homework.md) | Screw axes, a SCARA model in `modern_robotics`, Rodrigues and its inverse, quaternions |

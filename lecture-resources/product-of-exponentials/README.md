@@ -555,3 +555,17 @@ under which exponential coordinates may be added rather than composed through th
 The elements of the algebra are velocities: so(3) holds angular velocities, and se(3) holds
 twists, an angular and a linear velocity together. Velocities are what add normally, which is why
 the algebra is flat while the group is not.
+
+---
+
+## 12. Homework
+
+**[Problem set](homework.md)** &nbsp;&middot;&nbsp; [PDF](homework.pdf)
+
+Two problems. The first builds a complete model of a four-joint SCARA arm and evaluates it with
+the `modern_robotics` library. The second takes one rotation through Rodrigues' formula, back
+again through the matrix logarithm of section 3.5, and on to a quaternion.
+
+Worked solutions are linked from the problem set. Attempt the problems before opening them.
+
+Check Canvas for deliverables, deadlines, and grading rubric.
