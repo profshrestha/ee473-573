@@ -19,7 +19,7 @@ Check Canvas for deliverables, deadlines, and grading rubric.
 
 ## Board 1: Rotation, then rotation with displacement
 
-$$p^0 = R^0_1\,p^1 \qquad \longrightarrow \qquad p^0 = R^0_1\,p^1 + d^0_1$$
+$$p^0 = R^0_1 p^1 \qquad \longrightarrow \qquad p^0 = R^0_1 p^1 + d^0_1$$
 
 ![Whiteboard showing two coordinate frames sharing an origin with the relation p-zero equals R p-one, the identities R inverse equals R transpose and R-two-zero equals R-one-zero times R-two-one, and below a second diagram of three frames with separate origins and displacement vectors](figs/fig1-frames-rotation.jpg)
 
@@ -34,9 +34,9 @@ $d^0_2$ are what tie them together.
 Substituting the frame-1 description of $p$ into the frame-0 one carries that through:
 
 $$\begin{aligned}
-p^0 &= R^0_1\,p^1 + d^0_1 \\
-    &= R^0_1\left(R^1_2\,p^2 + d^1_2\right) + d^0_1 \\
-    &= R^0_1 R^1_2\,p^2 + R^0_1 d^1_2 + d^0_1
+p^0 &= R^0_1 p^1 + d^0_1 \\
+    &= R^0_1\left(R^1_2 p^2 + d^1_2\right) + d^0_1 \\
+    &= R^0_1 R^1_2 p^2 + R^0_1 d^1_2 + d^0_1
 \end{aligned}$$
 
 The last line splits cleanly into a rotation part and a displacement part, and that is where both

@@ -72,11 +72,11 @@ For a vector ω = (ω₁, ω₂, ω₃):
 The skew-symmetric matrix $[\omega]$ expresses the cross product as a matrix multiplication:
 
 ```math
-[\omega]\,p = \omega \times p
+[\omega] p = \omega \times p
 ```
 
 The transpose satisfies $[\omega]^T = -[\omega]$ (skew-symmetric definition), and
-$[\omega]\,\omega = 0$, since a vector crossed with itself vanishes.
+$[\omega] \omega = 0$, since a vector crossed with itself vanishes.
 
 Three identities hold when ω is a unit vector:
 
@@ -105,7 +105,7 @@ Those two brackets are the Taylor series for sin θ and 1 − cos θ.
 ### 3.3 Rodrigues' formula
 
 ```math
-e^{[\omega]\theta} = I + \sin\theta\,[\omega] + (1 - \cos\theta)\,[\omega]^2
+e^{[\omega]\theta} = I + \sin\theta [\omega] + (1 - \cos\theta) [\omega]^2
 ```
 
 The result is a rotation of θ radians about the axis ω, by the right-hand rule.
@@ -136,13 +136,13 @@ Rodrigues' formula runs from ω and θ to R. The inverse direction is the matrix
 Taking the trace of Rodrigues' formula, and using tr[ω] = 0 and tr[ω]² = −2,
 
 ```math
-\mathrm{tr}\,R = 1 + 2\cos\theta \qquad\Longrightarrow\qquad \theta = \arccos\frac{\mathrm{tr}\,R - 1}{2}
+\mathrm{tr} R = 1 + 2\cos\theta \qquad\Longrightarrow\qquad \theta = \arccos\frac{\mathrm{tr} R - 1}{2}
 ```
 
 and subtracting the transpose cancels the symmetric terms, leaving only the skew part:
 
 ```math
-R - R^T = 2\sin\theta\,[\omega] \qquad\Longrightarrow\qquad [\omega] = \frac{R - R^T}{2\sin\theta}
+R - R^T = 2\sin\theta [\omega] \qquad\Longrightarrow\qquad [\omega] = \frac{R - R^T}{2\sin\theta}
 ```
 
 Both expressions hold for 0 < θ < π and both degenerate when sin θ = 0. At θ = 0 the matrix is the
@@ -161,7 +161,7 @@ form ROS transports and the form most libraries store internally.
 ### 4.1 Definition
 
 ```math
-Q = w + x\,i + y\,j + z\,k, \qquad i^2 = j^2 = k^2 = ijk = -1
+Q = w + x i + y j + z k, \qquad i^2 = j^2 = k^2 = ijk = -1
 ```
 
 The relation among i, j and k is Hamilton's, and every quaternion product follows from it.
@@ -194,15 +194,15 @@ ill-conditioned as w approaches either value. This is the same degeneracy as in 
 The three principal rotations, scalar first:
 
 ```math
-Q_x = \left(\cos\tfrac{\theta}{2},\, \sin\tfrac{\theta}{2},\, 0,\, 0\right) \qquad
-Q_y = \left(\cos\tfrac{\theta}{2},\, 0,\, \sin\tfrac{\theta}{2},\, 0\right) \qquad
-Q_z = \left(\cos\tfrac{\theta}{2},\, 0,\, 0,\, \sin\tfrac{\theta}{2}\right)
+Q_x = \left(\cos\tfrac{\theta}{2}, \sin\tfrac{\theta}{2},  0,  0\right) \qquad
+Q_y = \left(\cos\tfrac{\theta}{2},  0, \sin\tfrac{\theta}{2},  0\right) \qquad
+Q_z = \left(\cos\tfrac{\theta}{2},  0,  0, \sin\tfrac{\theta}{2}\right)
 ```
 
 ### 4.3 To a rotation matrix
 
 ```math
-R = I + 2w\,[\mathbf{v}] + 2\,[\mathbf{v}]^2
+R = I + 2w [\mathbf{v}] + 2 [\mathbf{v}]^2
 ```
 
 or written out:
@@ -220,7 +220,7 @@ R = \begin{bmatrix}
 The Hamilton product composes rotations:
 
 ```math
-Q_1 \otimes Q_2 = \big(\, w_1w_2 - \mathbf{v}_1\cdot\mathbf{v}_2,\;\; w_1\mathbf{v}_2 + w_2\mathbf{v}_1 + \mathbf{v}_1 \times \mathbf{v}_2 \,\big)
+Q_1 \otimes Q_2 = \big(  w_1w_2 - \mathbf{v}_1\cdot\mathbf{v}_2,\;\; w_1\mathbf{v}_2 + w_2\mathbf{v}_1 + \mathbf{v}_1 \times \mathbf{v}_2 \big)
 ```
 
 It is not commutative, which it must not be, since rotations do not commute. For a unit quaternion
@@ -289,7 +289,7 @@ numbers, S = (ω, v).
 Let ω be the unit vector along the joint axis and q any point on that axis, in base coordinates:
 
 ```math
-\omega = \text{joint axis direction}, \qquad v = -\,\omega \times q
+\omega = \text{joint axis direction}, \qquad v = - \omega \times q
 ```
 
 The choice of q is free, and any point on the axis produces the same screw axis. And v is neither a
@@ -327,9 +327,9 @@ the arm moves somewhere else.
 For a revolute joint, with ω a unit vector:
 
 ```math
-e^{[\mathcal{S}]\theta} = \begin{bmatrix} e^{[\omega]\theta} & G(\theta)\,v \\ 0 & 1 \end{bmatrix}
+e^{[\mathcal{S}]\theta} = \begin{bmatrix} e^{[\omega]\theta} & G(\theta) v \\ 0 & 1 \end{bmatrix}
 \qquad
-G(\theta) = I\theta + (1-\cos\theta)\,[\omega] + (\theta - \sin\theta)\,[\omega]^2
+G(\theta) = I\theta + (1-\cos\theta) [\omega] + (\theta - \sin\theta) [\omega]^2
 ```
 
 The rotation block is Rodrigues' formula from section 3.3. For a prismatic joint ω = 0, and the
@@ -344,7 +344,7 @@ e^{[\mathcal{S}]\theta} = \begin{bmatrix} I & v\theta \\ 0 & 1 \end{bmatrix}
 ## 7. Product of exponentials, space form
 
 ```math
-H^0_n(\theta) = e^{[\mathcal{S}_1]\theta_1}\, e^{[\mathcal{S}_2]\theta_2} \cdots e^{[\mathcal{S}_n]\theta_n}\, M
+H^0_n(\theta) = e^{[\mathcal{S}_1]\theta_1}  e^{[\mathcal{S}_2]\theta_2} \cdots e^{[\mathcal{S}_n]\theta_n}  M
 ```
 
 Three quantities define the model:
@@ -384,7 +384,7 @@ tool = (L₂ + L₃, 0, L₁)
 The waist turns about a different direction from the other two:
 
 ```math
-\omega_1 = (0,\,0,\,1) \qquad\qquad \omega_2 = \omega_3 = (0,\,-1,\,0)
+\omega_1 = (0, 0, 1) \qquad\qquad \omega_2 = \omega_3 = (0, -1, 0)
 ```
 
 The linear part of each screw axis follows from v = −ω × q.
@@ -392,25 +392,25 @@ The linear part of each screw axis follows from v = −ω × q.
 **Joint 1, the waist.** The axis passes through the origin, so the cross product vanishes:
 
 ```math
-v_1 = -(0,0,1) \times (0,0,0) = (0,\,0,\,0)
+v_1 = -(0,0,1) \times (0,0,0) = (0, 0, 0)
 \qquad\Rightarrow\qquad
-\mathcal{S}_1 = (0,\,0,\,1,\;\; 0,\,0,\,0)
+\mathcal{S}_1 = (0, 0, 1,\;\; 0, 0, 0)
 ```
 
-**Joint 2, the shoulder.** $(0,-1,0) \times (0,0,L_1) = (-L_1,\,0,\,0)$, so
+**Joint 2, the shoulder.** $(0,-1,0) \times (0,0,L_1) = (-L_1, 0, 0)$, so
 
 ```math
-v_2 = (L_1,\,0,\,0)
+v_2 = (L_1, 0, 0)
 \qquad\Rightarrow\qquad
-\mathcal{S}_2 = (0,\,-1,\,0,\;\; L_1,\,0,\,0)
+\mathcal{S}_2 = (0, -1, 0,\;\; L_1, 0, 0)
 ```
 
-**Joint 3, the elbow.** $(0,-1,0) \times (L_2,0,L_1) = (-L_1,\,0,\,L_2)$, so
+**Joint 3, the elbow.** $(0,-1,0) \times (L_2,0,L_1) = (-L_1, 0, L_2)$, so
 
 ```math
-v_3 = (L_1,\,0,\,-L_2)
+v_3 = (L_1, 0, -L_2)
 \qquad\Rightarrow\qquad
-\mathcal{S}_3 = (0,\,-1,\,0,\;\; L_1,\,0,\,-L_2)
+\mathcal{S}_3 = (0, -1, 0,\;\; L_1, 0, -L_2)
 ```
 
 The L₁ in v₃ is the moment of the axis ω₃ about the base origin, which the axis sits L₁ above.
@@ -538,13 +538,13 @@ A Lie algebra is more than a vector space. It carries a product of its own, the 
 for matrices is the commutator
 
 ```math
-[A,\,B] = AB - BA
+[A, B] = AB - BA
 ```
 
 and the space is closed under it. In so(3) the bracket reproduces the cross product,
 
 ```math
-\big[[\omega_1],\,[\omega_2]\big] = [\omega_1 \times \omega_2]
+\big[[\omega_1], [\omega_2]\big] = [\omega_1 \times \omega_2]
 ```
 
 so the cross product of section 3.1 is the bracket of so(3) written in vector form. What the
