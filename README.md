@@ -13,6 +13,4 @@ Check Canvas for deliverables, deadlines, and grading rubric.
 
 ## Projects
 
-| # | Project |
-|---|---------|
-| 1 | [Computer Assembly](projects/project-01-computer-assembly/README.md) |
+Projects are linked here as they are released.
