@@ -10,3 +10,9 @@ Check Canvas for the lecture schedule, deliverables, deadlines, and grading rubr
 |---|---------|
 | 2 | [Rigid Motions and Homogeneous Transformations](chapter-02/README.md) |
 | 3 | [Forward Kinematics and the Denavit-Hartenberg Convention](chapter-03/README.md) |
+
+## Supplementary Topics
+
+| Topic | Follows |
+|---|---------|
+| [Forward Kinematics: Product of Exponentials](product-of-exponentials/README.md) | Chapter 3 |
