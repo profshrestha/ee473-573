@@ -23,15 +23,20 @@ You are writing a small kinematics library, not a script. The structure matters 
 ```
 kinematics/     pure math. Imports numpy and nothing else.
   transforms.py rotation matrices, homogeneous transforms, helpers
-  dh.py         DH table to A matrix, forward kinematics
+  fk.py         DH table to A matrix, forward kinematics, and the PoE check
   ik.py         inverse kinematics
 robot/
   rx150.py      the ONLY file permitted to import a robot SDK or talk to hardware
 tests/
   test_roundtrip.py
-results/
-  measurements.md
+scripts/
+  verify_fk.py  harness for the three forward kinematics checks in Part B
+REPORT.md       your report. This is the deliverable people read.
+figures/        photographs and plots the report points at
 ```
+
+Your repository already has all of this in place, with every function stubbed out. Fill the stubs
+in; do not restructure.
 
 **Nothing in `kinematics/` may import a robot driver, ROS, or anything hardware specific.** It
 takes numbers in and returns numbers out. The arm-specific code lives in `robot/`, and its job is
@@ -46,11 +51,31 @@ file.
 
 ## 3. Setup
 
-1. Accept the assignment from the link on Canvas. It creates a private repository for you with
-   this structure already in place.
-2. Create a Python virtual environment in your home directory and install the requirements. Do
-   not use `sudo pip`.
-3. Confirm you can launch the RX150 description and see the arm in RViz before you write any
+1. **Accept the GitHub invitation** sent to your `@sonoma.edu` address. It puts you in the
+   `SSU-ISL` organization, where you will find one private repository named for your station,
+   shared with your station team. It already has the structure above in place.
+
+   The invitation can only be accepted by a GitHub account with your `@sonoma.edu` address
+   verified on it. If you already had an account under a personal address, add the SSU one first
+   under Settings, Emails. Invitations expire after seven days.
+
+2. Clone it to your station machine.
+
+   ```bash
+   git clone https://github.com/SSU-ISL/ee473-2026f-p1-station-NN.git
+   cd ee473-2026f-p1-station-NN
+   ```
+
+3. Create a Python virtual environment and install the requirements. Do not use `sudo pip`.
+
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install -r requirements.txt
+   pytest -v        # everything fails. That is the starting line.
+   ```
+
+4. Confirm you can launch the RX150 description and see the arm in RViz before you write any
    kinematics.
 
 > **Never commit credentials.** No tokens, no `.env` files, no API keys. The `.gitignore` already
@@ -255,12 +280,23 @@ claim.
 
 Everything goes in your repository except the live demo.
 
-- The hand-drawn frame assignment and DH table, photographed or scanned.
+- **`REPORT.md`**, the document this project is read through. The template in your repository
+  has the sections. It carries the photographed frame assignment, the DH table, your three
+  forward kinematics verifications with the output that proves them, your inverse kinematics
+  approach, the predicted versus measured table, and the error analysis.
+
+  Write it as a technical document, not as a form with the blanks filled in. For the shape to
+  aim at, see [Forward Kinematics of the UR5e: DH and
+  PoE](https://www.roboticsunveiled.com/forward-kinematics-ur5e-dh-poe/). That page states the
+  frame assignment, shows the table, gives the equations, shows the code that implements them,
+  and then shows the **actual output** proving the two methods agree. Every claim is backed by
+  something a reader can check. Yours need not be as long. It does need to be as honest.
+
+  It is read on GitHub, so the equations must render there. The template has a note at the
+  bottom on the renderer's sharp edges; read it before you write mathematics, not after.
 - The `kinematics/` library, with `robot/rx150.py` as the only hardware-aware file.
-- Evidence of all three forward kinematics verifications.
 - A passing round-trip test.
-- `results/measurements.md` with the predicted versus measured table and your error analysis.
-- A short README in your repo saying how to run your code.
+- A short note in `README.md` saying how to run your code.
 - **Live demo.** You will be given a target position and approach angle, and asked to command the
   arm to it and explain why it went where it went. **Run it from your station**, working from the
   code in your repository. Personal laptops are not used for demos.
