@@ -13,4 +13,8 @@ Check Canvas for deliverables, deadlines, and grading rubric.
 
 ## Projects
 
-Projects are linked here as they are released.
+| # | Project |
+|---|---------|
+| 1 | [RX150 Kinematics](projects/project-01-rx150-kinematics/README.md) |
+
+Further projects are linked here as they are released.
