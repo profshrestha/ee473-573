@@ -75,6 +75,18 @@ Then:
 
 ### Reading the URDF
 
+> **Read this first.** Lynch and Park, *Modern Robotics*, **§4.2, The Universal Robot Description
+> Format**, pages 152 to 158. Seven pages, and they cover exactly what you are about to do: what
+> `<joint>`, `<parent>`, `<child>`, `<origin>` and `<axis>` each mean, why a URDF describes a
+> robot as a tree rather than a chain, why most links carry two frames rather than one, and a
+> fully annotated URDF for the UR5 printed beside a diagram of its frames. The preprint is free
+> at [modernrobotics.org](http://modernrobotics.org).
+>
+> Two things in it are worth carrying into this project directly. An `<origin>` is the pose of
+> the **child** link's frame in the **parent's** frame when the joint variable is zero, which is
+> the point laboured below. And an `<axis>` is a unit vector in the **child** link's frame, not
+> the base frame, which is why you cannot read the axes off and use them as they stand.
+
 The description lives in the `interbotix_xsarm_descriptions` package as `rx150.urdf.xacro`. It is
 a **xacro** file, not plain URDF, so it is full of unresolved `$(arg ...)` substitutions and link
 names will read as `$(arg robot_name)/base_link`. Either substitute mentally as you read, or run
