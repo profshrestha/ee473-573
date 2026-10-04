@@ -75,12 +75,18 @@ Then:
 
 ### Reading the URDF
 
-> **Read this first.** Lynch and Park, *Modern Robotics*, **§4.2, The Universal Robot Description
-> Format**, pages 152 to 158. Seven pages, and they cover exactly what you are about to do: what
-> `<joint>`, `<parent>`, `<child>`, `<origin>` and `<axis>` each mean, why a URDF describes a
-> robot as a tree rather than a chain, why most links carry two frames rather than one, and a
-> fully annotated URDF for the UR5 printed beside a diagram of its frames. The preprint is free
-> at [modernrobotics.org](http://modernrobotics.org).
+> **Read this first:** [The Universal Robot Description Format
+> (PDF, 7 pages)](references/lynch-park-4.2-urdf.pdf)
+>
+> It covers exactly what you are about to do: what `<joint>`, `<parent>`, `<child>`, `<origin>`
+> and `<axis>` each mean, why a URDF describes a robot as a tree rather than a chain, why most
+> links carry two frames rather than one, and a fully annotated URDF for the UR5 printed beside a
+> diagram of its frames.
+>
+> From Lynch and Park, *Modern Robotics*, §4.2, pages 152 to 158. Cambridge University Press,
+> 2017. The full book is free at [modernrobotics.org](http://modernrobotics.org) and is worth
+> having: §4.1 covers the product of exponentials, Appendix C the Denavit-Hartenberg convention,
+> and Chapter 5 the Jacobian you will need in Project 2.
 >
 > Two things in it are worth carrying into this project directly. An `<origin>` is the pose of
 > the **child** link's frame in the **parent's** frame when the joint variable is zero, which is
