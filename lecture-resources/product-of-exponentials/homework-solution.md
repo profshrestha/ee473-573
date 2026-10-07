@@ -202,7 +202,7 @@ R - R^{T} = \frac{1}{\sqrt3}\begin{bmatrix} 0 & -2 & -1 \\ 2 & 0 & -2 \\ 1 & 2 &
 = \frac{1}{3}\begin{bmatrix} 0 & -2 & -1 \\ 2 & 0 & -2 \\ 1 & 2 & 0 \end{bmatrix}
 ```
 
-Reading off $-\omega_3$, $\omega_2$, $-\omega_1$ gives $\omega = (\tfrac23, -\tfrac13, \tfrac23)$,
+Reading off $-\omega_z$, $\omega_y$, $-\omega_x$ gives $\omega = (\tfrac23, -\tfrac13, \tfrac23)$,
 which is what we started with. ✓
 
 The trace coming out exactly zero is not a coincidence worth chasing; it is simply what

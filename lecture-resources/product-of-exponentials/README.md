@@ -63,10 +63,10 @@ Everything is expressed in the fixed base frame unless stated otherwise.
 
 ### 3.1 Skew-symmetric matrices
 
-For a vector ω = (ω₁, ω₂, ω₃):
+For a vector $\omega = (\omega_x, \omega_y, \omega_z)$:
 
 ```math
-[\omega] = \begin{bmatrix} 0 & -\omega_3 & \omega_2 \\ \omega_3 & 0 & -\omega_1 \\ -\omega_2 & \omega_1 & 0 \end{bmatrix}
+[\omega] = \begin{bmatrix} 0 & -\omega_z & \omega_y \\ \omega_z & 0 & -\omega_x \\ -\omega_y & \omega_x & 0 \end{bmatrix}
 ```
 
 The skew-symmetric matrix $[\omega]$ expresses the cross product as a matrix multiplication:
