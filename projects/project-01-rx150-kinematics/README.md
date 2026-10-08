@@ -66,22 +66,18 @@ file.
    cd ee473-2026f-p1-station-NN
    ```
 
-3. **Do not create a virtual environment and do not run `pip install`.** Everything you need is
-   already installed on the station and already active when you open a terminal: ROS 2 Jazzy,
-   the Interbotix packages, and the Python environment with NumPy, `modern_robotics`, PyTorch
-   and the rest.
+3. **Run the test suite.** Everything you need is installed on the station and active when you
+   open a terminal: ROS 2 Jazzy, the Interbotix packages, and the Python environment with NumPy,
+   `modern_robotics`, PyTorch and the rest.
 
    ```bash
    pytest -v        # everything fails. That is the starting line.
    ```
 
-   If `pytest` is not found, the terminal has not picked up the environment. Open a new one, or
-   `source /opt/isl-venv/bin/activate`.
+   If `pytest` is not found, open a new terminal, or run `source /opt/isl-venv/bin/activate`.
 
-   The `requirements.txt` in your repository is a **manifest** of what the station provides, not
-   something to run. In particular, never install PyTorch yourself: the station build is pinned
-   to the CUDA 12.8 wheel the RTX 5080 requires, and the default wheel imports cleanly and then
-   fails at kernel launch.
+   The `requirements.txt` in your repository is a manifest of what the station provides. Its
+   PyTorch is pinned to the CUDA 12.8 build the RTX 5080 requires.
 
 4. Confirm you can launch the RX150 description and see the arm in RViz before you write any
    kinematics.
