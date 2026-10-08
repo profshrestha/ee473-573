@@ -66,14 +66,22 @@ file.
    cd ee473-2026f-p1-station-NN
    ```
 
-3. Create a Python virtual environment and install the requirements. Do not use `sudo pip`.
+3. **Do not create a virtual environment and do not run `pip install`.** Everything you need is
+   already installed on the station and already active when you open a terminal: ROS 2 Jazzy,
+   the Interbotix packages, and the Python environment with NumPy, `modern_robotics`, PyTorch
+   and the rest.
 
    ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   pip install -r requirements.txt
    pytest -v        # everything fails. That is the starting line.
    ```
+
+   If `pytest` is not found, the terminal has not picked up the environment. Open a new one, or
+   `source /opt/isl-venv/bin/activate`.
+
+   The `requirements.txt` in your repository is a **manifest** of what the station provides, not
+   something to run. In particular, never install PyTorch yourself: the station build is pinned
+   to the CUDA 12.8 wheel the RTX 5080 requires, and the default wheel imports cleanly and then
+   fails at kernel launch.
 
 4. Confirm you can launch the RX150 description and see the arm in RViz before you write any
    kinematics.
