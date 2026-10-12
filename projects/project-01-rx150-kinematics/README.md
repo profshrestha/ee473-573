@@ -160,20 +160,25 @@ behind it than you expect, and a hand in the path becomes a pinch point.
 
 ### Your shell is already configured
 
-The station sources ROS 2 Jazzy, the Interbotix workspace and the Python environment when you log
-in. If a shell is missing them:
+A terminal you just opened already has ROS 2 Jazzy, the Interbotix workspace and the Python
+environment. There is nothing to source. Check:
 
 ```bash
-source /opt/ros/jazzy/setup.bash
+ros2 pkg list | grep interbotix       # 17 packages
+```
+
+The exception is a shell that is not an interactive login, such as a script you run or a command
+sent over `ssh`. Ubuntu's `.bashrc` stops early for those, so `ros2` will be missing. Put these
+two lines at the top of such a script:
+
+```bash
 source /opt/interbotix_ws/install/setup.bash
 source /opt/isl-venv/bin/activate
 ```
 
-Check what is visible:
-
-```bash
-ros2 pkg list | grep interbotix
-```
+Sourcing the workspace brings ROS 2 Jazzy with it, because a colcon workspace records the
+underlay it was built against. The second line is the Python environment, which colcon knows
+nothing about.
 
 ### Launching the model, with no hardware
 
