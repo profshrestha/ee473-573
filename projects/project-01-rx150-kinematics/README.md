@@ -1,8 +1,9 @@
 # Project 1: Kinematics of the RX150
 
-**Individual work.** You write your own code and your own derivation. Hardware measurement
-sessions are done in your team of three, since arms are time-shared and measuring is a job for
-more than one person.
+**Individual work, in a shared repository.** You write your own code and your own derivation, in
+your own directory at `students/<your-username>/`. Hardware measurement sessions are done in your
+team of three, since arms are time-shared and measuring is a job for more than one person, and
+the measurements go in one shared file that all three of you analyse separately.
 
 Check Canvas for deliverables, deadlines, and grading rubric.
 
@@ -21,22 +22,32 @@ Check Canvas for deliverables, deadlines, and grading rubric.
 You are writing a small kinematics library, not a script. The structure matters and is graded:
 
 ```
-kinematics/     pure math. Imports numpy and nothing else.
-  transforms.py rotation matrices, homogeneous transforms, helpers
-  fk.py         DH table to A matrix, forward kinematics, and the PoE check
-  ik.py         inverse kinematics
-robot/
-  rx150.py      the ONLY file permitted to import a robot SDK or talk to hardware
-tests/
-  test_roundtrip.py
-scripts/
-  verify_fk.py  harness for the three forward kinematics checks in Part B
-REPORT.md       your report. This is the deliverable people read.
-figures/        photographs and plots the report points at
+students/<your-username>/      your work. Your teammates have their own beside it
+  kinematics/     pure math. Imports numpy and nothing else.
+    transforms.py rotation matrices, homogeneous transforms, helpers
+    fk.py         DH table to A matrix, forward kinematics, and the PoE check
+    ik.py         inverse kinematics
+  robot/
+    rx150.py      the ONLY file permitted to import a robot SDK or talk to hardware
+  tests/
+    test_roundtrip.py
+  scripts/
+    verify_fk.py  harness for the three forward kinematics checks in Part B
+  REPORT.md       your report. This is the deliverable people read.
+  figures/        photographs and plots the report points at
+
+data/
+  partD-measurements.csv   shared with your team. One session, three analyses
 ```
 
 Your repository already has all of this in place, with every function stubbed out. Fill the stubs
 in; do not restructure.
+
+**One repository per station, one directory per student.** The code is individual: your own frame
+assignment, your own DH table, your own kinematics, your own report. You share the repository so
+that the Part D measurement session has one home, and so three independent derivations can be
+compared against one set of measurements. Stay in your own directory and do not copy between
+them.
 
 **Nothing in `kinematics/` may import a robot driver, ROS, or anything hardware specific.** It
 takes numbers in and returns numbers out. The arm-specific code lives in `robot/`, and its job is
@@ -59,20 +70,25 @@ file.
    verified on it. If you already had an account under a personal address, add the SSU one first
    under Settings, Emails. Invitations expire after seven days.
 
-2. Clone it to your station machine.
+2. Clone it to your station machine and move into **your own** directory.
 
    ```bash
    git clone https://github.com/SSU-ISL/ee473-2026f-p1-station-NN.git
-   cd ee473-2026f-p1-station-NN
+   cd ee473-2026f-p1-station-NN/students/YOUR-USERNAME
    ```
+
+   Your username is the part of your SSU email before the `@`.
 
 3. **Run the test suite.** Everything you need is installed on the station and active when you
    open a terminal: ROS 2 Jazzy, the Interbotix packages, and the Python environment with NumPy,
    `modern_robotics`, PyTorch and the rest.
 
    ```bash
-   pytest -v        # everything fails. That is the starting line.
+   pytest -v        # 14 failures, all NotImplementedError. That is the starting line.
    ```
+
+   Run it from your own directory, not from the repository root. Three copies of the same
+   package live side by side, and collecting them all at once confuses the import machinery.
 
    If `pytest` is not found, open a new terminal, or run `source /opt/isl-venv/bin/activate`.
 
@@ -464,13 +480,22 @@ arm, one measures, one records and calls out the predicted value afterward rathe
 > and keep a hand on the power switch. If the arm moves toward the table, cut power. Do not try to
 > catch it.
 
+Fill in the `Arm` class in `robot/rx150.py` first. It is a context manager, so the arm is put
+back in the sleep pose even if your script raises partway through, and the Interbotix imports
+belong inside its methods so the test suite still runs with no arm attached.
+
 1. Choose five reachable configurations that spread across the workspace, not five variations of
    the same pose.
 2. For each, compute the predicted gripper position with your FK.
 3. Command the arm to that configuration and let it settle.
 4. Measure the actual gripper tip position relative to the base frame origin with a ruler or
    calipers. Decide on a measurement procedure first and use the same one every time.
-5. Record predicted and measured, and the error per axis in millimetres.
+5. Record the angles, the measurements and your notes in `data/partD-measurements.csv` at the
+   repository root. That file is shared: one session, one dataset, three independent analyses.
+6. In your own report, record predicted and measured, and the error per axis in millimetres.
+
+Record what the servos actually reached with `arm.read()`, not only what you commanded. The two
+differ under gravity load, and that difference is one of the explanations you are asked to weigh.
 
 Then account for the difference. Your error will not be zero. Candidates include servo position
 error under gravity load, link dimensions that differ from the datasheet, your measurement
