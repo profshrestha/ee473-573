@@ -82,10 +82,206 @@ file.
 4. Confirm you can launch the RX150 description and see the arm in RViz before you write any
    kinematics.
 
+5. **Codex CLI is installed** if you want an AI assistant in the terminal. Run `codex login`
+   once, then `codex` from inside your repository. Run `codex logout` when you leave the
+   station: it is shared.
+
 > **Never commit credentials.** No tokens, no `.env` files, no API keys. The `.gitignore` already
 > excludes the common cases, but check `git status` before you commit.
 
-## 4. Part A: Frames and the DH table
+## 4. Working with the arm
+
+Everything in this section applies from Part A onward. Read it before you touch an arm.
+
+### Checking out the hardware
+
+The RX150 arms are in **Salazar 2008**. For each session, collect four items:
+
+| | |
+|---|---|
+| **Arm** | An RX150 |
+| **Power adapter** | The arm's own 12 V supply |
+| **USB cable** | USB to micro USB. Three dedicated cables remain, and any USB to micro USB cable works if they are out |
+| **Clamp** | For fixing the arm to the table |
+
+Take them to your station and set up in this order:
+
+1. **Clamp the arm to the table.** The base must be fixed before power goes on. An unclamped arm
+   walks across the table and then off it.
+2. **Clear the workspace.** The RX150 reaches about 450 mm in every direction, so keep that
+   radius free of laptops, bottles, keyboards and hands.
+3. Connect the power adapter, then the USB cable to your station.
+4. Confirm the arm is detected:
+
+   ```bash
+   ls /dev | grep ttyDXL
+   ```
+
+   ```
+   ttyDXL
+   ```
+
+   An empty result means the USB or power connection is not made. Everything below depends on
+   this line.
+
+**When you finish, return the arm, the adapter, the cable and the clamp to where you found them.**
+The three cables in particular are shared across eight teams.
+
+### The collapse warning
+
+**The arm falls when the motors are released.** This happens in two situations, both of which you
+will hit in this project:
+
+- Torquing the motors off with a service call
+- Closing the control launch with Ctrl + C
+
+Before either one: **send the arm to Sleep Pose, or hold it.** Sleep is the folded configuration
+where the arm rests on itself and has nowhere to fall. Make it the last thing you do in every
+session.
+
+If the arm does start to fall, cut power rather than catching it. A falling arm has more torque
+behind it than you expect, and a hand in the path becomes a pinch point.
+
+### Your shell is already configured
+
+The station sources ROS 2 Jazzy, the Interbotix workspace and the Python environment when you log
+in. If a shell is missing them:
+
+```bash
+source /opt/ros/jazzy/setup.bash
+source /opt/interbotix_ws/install/setup.bash
+source /opt/isl-venv/bin/activate
+```
+
+Check what is visible:
+
+```bash
+ros2 pkg list | grep interbotix
+```
+
+### Launching the model, with no hardware
+
+Start here when you are working on frames, the DH table, or anything else that does not need the
+physical arm:
+
+```bash
+ros2 launch interbotix_xsarm_descriptions xsarm_description.launch.py \
+  robot_model:=rx150 use_joint_pub_gui:=true
+```
+
+RViz opens with the model and a slider panel. Each slider publishes a joint angle, and the model
+follows. The sliders are in **radians**, and their end stops are the real joint limits, which
+makes this the fastest way to check whether a configuration you derived is reachable before you
+command it on hardware.
+
+Use this for Part A and Part B. Ctrl + C to end it.
+
+### Launching the real arm
+
+```bash
+ros2 launch interbotix_xsarm_control xsarm_control.launch.py robot_model:=rx150
+```
+
+This starts the driver and the same RViz view. Leave the terminal running and open a second one
+for everything else.
+
+The useful thing to understand: RViz is a viewer subscribed to `/rx150/joint_states`. In the
+description launch, the sliders publish that topic. Here, the servo encoders do. The window is
+identical either way, which is why RViz showing a correct arm proves nothing about the hardware
+until the driver is the one publishing.
+
+```bash
+ros2 topic echo /rx150/joint_states --once
+```
+
+### Moving the arm by hand
+
+**Support the arm before running this.** It will collapse.
+
+```bash
+ros2 service call /rx150/torque_enable interbotix_xs_msgs/srv/TorqueEnable \
+  "{cmd_type: 'group', name: 'all', enable: false}"
+```
+
+Now backdrive the arm by hand and watch RViz follow. Hold it in a pose and torque back on:
+
+```bash
+ros2 service call /rx150/torque_enable interbotix_xs_msgs/srv/TorqueEnable \
+  "{cmd_type: 'group', name: 'all', enable: true}"
+```
+
+`name: 'all'` covers every servo including the gripper. Use `name: 'arm'` to leave the gripper
+torqued on.
+
+This is worth doing a few times. Backdriving the arm through your five chosen configurations
+tells you quickly which ones are awkward or unreachable, before you command them.
+
+### The RViz control panel
+
+In the RViz window, the **Interbotix Control Panel** is docked at the lower left. Type `rx150`
+into **Robot Namespace**, click **Update**, and select `all` under **Group Name**.
+
+The **Home/Sleep** tab gives you **Go to Home Pose** and **Go to Sleep Pose**. The **Torque** tab
+does the same job as the two service calls above.
+
+### Commanding joint angles from Python
+
+The panel only reaches the two preset poses. For Part D you need arbitrary configurations, which
+means the Python API. Leave the control launch running and run this from a second terminal:
+
+```python
+#!/usr/bin/env python3
+from interbotix_common_modules.common_robot.robot import robot_shutdown, robot_startup
+from interbotix_xs_modules.xs_robot.arm import InterbotixManipulatorXS
+
+
+def main():
+    bot = InterbotixManipulatorXS(robot_model='rx150', group_name='arm',
+                                  gripper_name='gripper')
+    robot_startup()
+
+    bot.arm.set_trajectory_time(moving_time=3.0, accel_time=1.0)
+    bot.arm.go_to_home_pose()
+
+    # waist, shoulder, elbow, wrist_angle, wrist_rotate, in radians
+    bot.arm.set_joint_positions([0.0, -0.5, 0.6, 0.5, 0.0])
+    print('measured joint angles:', bot.arm.get_joint_positions())
+    print('end effector pose:\n', bot.arm.get_ee_pose())
+
+    bot.arm.go_to_sleep_pose()
+    robot_shutdown()
+
+
+if __name__ == '__main__':
+    main()
+```
+
+The calls you will need:
+
+| Call | What it does |
+|---|---|
+| `bot.arm.set_joint_positions([w, s, e, wa, wr])` | Command five joint angles in radians |
+| `bot.arm.get_joint_positions()` | Read the angles the servos actually reached |
+| `bot.arm.get_ee_pose()` | The driver's own 4x4 end effector pose |
+| `bot.arm.go_to_home_pose()` / `go_to_sleep_pose()` | The two presets |
+| `bot.arm.set_single_joint_position('waist', 0.8)` | One joint by name |
+| `bot.arm.set_trajectory_time(moving_time=3.0)` | Seconds per motion. Raise it to slow the arm |
+
+Each call blocks until the motion completes.
+
+Three things that will cost you time otherwise:
+
+**Angles are radians.** Use `math.radians()` if you prefer degrees.
+
+**`get_ee_pose()` is the driver's answer, not yours.** It comes from the manufacturer's model, so
+it is an excellent check on your forward kinematics. Comparing your FK against it is faster than
+reaching for a ruler, and it isolates model error from measurement error. The ruler measurement
+Part D asks for is still required, because the driver's model and the physical arm are also two
+different things.
+
+**Start slow and near home.** Raise `moving_time` while you are learning. A single large command
+takes the shortest joint path, which is not the path you pictured, and the arm can swing through
+the table on the way.
 
 **Start and end where everyone else does.** A DH table only means anything relative to where the
 chain begins and ends, so these two are given to you rather than chosen:
@@ -187,7 +383,7 @@ it.
 > This is worth understanding rather than memorizing, because you will meet a robot whose author
 > did not follow the convention.
 
-## 5. Part B: Forward kinematics
+## 6. Part B: Forward kinematics
 
 Implement `fk(thetas) -> H`, taking five joint angles and returning the 4x4 pose of the gripper
 frame in the base frame.
@@ -207,7 +403,7 @@ Then verify it three ways. All three must agree before you move on.
 Report all three comparisons. If any disagree, the disagreement is the finding, and you should
 chase it before continuing.
 
-## 6. Part C: Inverse kinematics
+## 7. Part C: Inverse kinematics
 
 **Read this section before you write code.** The RX150 has five joints. A general pose in space
 requires six numbers, three for position and three for orientation. Five joints cannot satisfy six
@@ -252,7 +448,7 @@ reason you are checking one against itself here, so build the habit now.
 > A passing round trip proves a solution is *valid*. It does not prove you found *all* of them,
 > and it does not prove the arm can adopt it. That is why the two requirements above exist.
 
-## 7. Part D: Hardware verification
+## 8. Part D: Hardware verification
 
 This part is done in your team of three, sharing an arm. All three submit the same measurement
 data; **each of you writes your own analysis against your own forward kinematics.** Your
@@ -280,7 +476,7 @@ technique, a wrong DH parameter, and the fact that the gripper tip is not exactl
 decided the frame was. Argue for which ones dominate in your data and say how you would test that
 claim.
 
-## 8. Deliverables
+## 9. Deliverables
 
 Everything goes in your repository except the live demo.
 
@@ -305,7 +501,7 @@ Everything goes in your repository except the live demo.
   arm to it and explain why it went where it went. **Run it from your station**, working from the
   code in your repository. Personal laptops are not used for demos.
 
-## 9. Notes
+## 10. Notes
 
 The gripper frame is yours to define, but define it once and use the same definition in your
 derivation, your code, and your measurements. Most large discrepancies in this project trace back
