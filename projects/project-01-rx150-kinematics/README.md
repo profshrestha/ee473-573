@@ -283,6 +283,8 @@ different things.
 takes the shortest joint path, which is not the path you pictured, and the arm can swing through
 the table on the way.
 
+## 5. Part A: Frames and the DH table
+
 **Start and end where everyone else does.** A DH table only means anything relative to where the
 chain begins and ends, so these two are given to you rather than chosen:
 
