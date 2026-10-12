@@ -107,7 +107,12 @@ file.
 
 ## 4. Working with the arm
 
-Everything in this section applies from Part A onward. Read it before you touch an arm.
+Read this before you touch an arm. It applies from Part A onward.
+
+The ROS 2 mechanics, launching the description and the control stack, what RViz is actually
+showing you, torque control, the RViz panel and the Python API, are in
+**[ROS 2, RViz and the RX150](../../lecture-resources/ros2-rx150/README.md)**. Work through that
+page once. This section covers only what is specific to this project.
 
 ### Checking out the hardware
 
@@ -133,11 +138,7 @@ Take them to your station and set up in this order:
    ls /dev | grep ttyDXL
    ```
 
-   ```
-   ttyDXL
-   ```
-
-   An empty result means the USB or power connection is not made. Everything below depends on
+   An empty result means the USB or power connection is not made. Everything else depends on
    this line.
 
 **When you finish, return the arm, the adapter, the cable and the clamp to where you found them.**
@@ -158,147 +159,54 @@ session.
 If the arm does start to fall, cut power rather than catching it. A falling arm has more torque
 behind it than you expect, and a hand in the path becomes a pinch point.
 
-### Your shell is already configured
+### Which launch for which part
 
-A terminal you just opened already has ROS 2 Jazzy, the Interbotix workspace and the Python
-environment. There is nothing to source. Check:
-
-```bash
-ros2 pkg list | grep interbotix       # 17 packages
-```
-
-The exception is a shell that is not an interactive login, such as a script you run or a command
-sent over `ssh`. Ubuntu's `.bashrc` stops early for those, so `ros2` will be missing. Put these
-two lines at the top of such a script:
-
-```bash
-source /opt/interbotix_ws/install/setup.bash
-source /opt/isl-venv/bin/activate
-```
-
-Sourcing the workspace brings ROS 2 Jazzy with it, because a colcon workspace records the
-underlay it was built against. The second line is the Python environment, which colcon knows
-nothing about.
-
-### Launching the model, with no hardware
-
-Start here when you are working on frames, the DH table, or anything else that does not need the
-physical arm:
+| Part | Launch | Why |
+|---|---|---|
+| A, B | `xsarm_description.launch.py` | The model and the slider GUI, no hardware. The sliders are in radians and their end stops are the real joint limits, so this is the cheapest way to check whether a configuration you derived is reachable |
+| C | none | Inverse kinematics is pure math. Check it with the round trip tests |
+| D | `xsarm_control.launch.py` | The driver and the real arm |
 
 ```bash
 ros2 launch interbotix_xsarm_descriptions xsarm_description.launch.py \
   robot_model:=rx150 use_joint_pub_gui:=true
-```
 
-RViz opens with the model and a slider panel. Each slider publishes a joint angle, and the model
-follows. The sliders are in **radians**, and their end stops are the real joint limits, which
-makes this the fastest way to check whether a configuration you derived is reachable before you
-command it on hardware.
-
-Use this for Part A and Part B. Ctrl + C to end it.
-
-### Launching the real arm
-
-```bash
 ros2 launch interbotix_xsarm_control xsarm_control.launch.py robot_model:=rx150
 ```
 
-This starts the driver and the same RViz view. Leave the terminal running and open a second one
-for everything else.
+Backdriving the arm by hand through your five Part D configurations, with the motors torqued off,
+tells you quickly which ones are awkward or unreachable. Do that before you command them.
 
-The useful thing to understand: RViz is a viewer subscribed to `/rx150/joint_states`. In the
-description launch, the sliders publish that topic. Here, the servo encoders do. The window is
-identical either way, which is why RViz showing a correct arm proves nothing about the hardware
-until the driver is the one publishing.
+### Where your hardware code goes
 
-```bash
-ros2 topic echo /rx150/joint_states --once
-```
+All of it goes in the `Arm` class in `robot/rx150.py`, and nowhere else. That file is the only
+one in the project permitted to import a robot SDK, and the boundary is graded.
 
-### Moving the arm by hand
+Fill in `__enter__` and `__exit__` with `InterbotixManipulatorXS`, `robot_startup()` and
+`robot_shutdown()`, then `send()`, `read()` and `driver_ee_pose()`. Keep the Interbotix imports
+inside the methods: the test suite has to run on a machine with no arm attached, and a
+module-level import makes `pytest` fail at collection for a reason that has nothing to do with
+your code.
 
-**Support the arm before running this.** It will collapse.
-
-```bash
-ros2 service call /rx150/torque_enable interbotix_xs_msgs/srv/TorqueEnable \
-  "{cmd_type: 'group', name: 'all', enable: false}"
-```
-
-Now backdrive the arm by hand and watch RViz follow. Hold it in a pose and torque back on:
-
-```bash
-ros2 service call /rx150/torque_enable interbotix_xs_msgs/srv/TorqueEnable \
-  "{cmd_type: 'group', name: 'all', enable: true}"
-```
-
-`name: 'all'` covers every servo including the gripper. Use `name: 'arm'` to leave the gripper
-torqued on.
-
-This is worth doing a few times. Backdriving the arm through your five chosen configurations
-tells you quickly which ones are awkward or unreachable, before you command them.
-
-### The RViz control panel
-
-In the RViz window, the **Interbotix Control Panel** is docked at the lower left. Type `rx150`
-into **Robot Namespace**, click **Update**, and select `all` under **Group Name**.
-
-The **Home/Sleep** tab gives you **Go to Home Pose** and **Go to Sleep Pose**. The **Torque** tab
-does the same job as the two service calls above.
-
-### Commanding joint angles from Python
-
-The panel only reaches the two preset poses. For Part D you need arbitrary configurations, which
-means the Python API. Leave the control launch running and run this from a second terminal:
+Used as a context manager, the arm is put away even when your script raises partway through:
 
 ```python
-#!/usr/bin/env python3
-from interbotix_common_modules.common_robot.robot import robot_shutdown, robot_startup
-from interbotix_xs_modules.xs_robot.arm import InterbotixManipulatorXS
+from robot.rx150 import Arm
 
-
-def main():
-    bot = InterbotixManipulatorXS(robot_model='rx150', group_name='arm',
-                                  gripper_name='gripper')
-    robot_startup()
-
-    bot.arm.set_trajectory_time(moving_time=3.0, accel_time=1.0)
-    bot.arm.go_to_home_pose()
-
-    # waist, shoulder, elbow, wrist_angle, wrist_rotate, in radians
-    bot.arm.set_joint_positions([0.0, -0.5, 0.6, 0.5, 0.0])
-    print('measured joint angles:', bot.arm.get_joint_positions())
-    print('end effector pose:\n', bot.arm.get_ee_pose())
-
-    bot.arm.go_to_sleep_pose()
-    robot_shutdown()
-
-
-if __name__ == '__main__':
-    main()
+with Arm() as arm:
+    arm.send(my_solution)
+    measured = arm.read()
+    print(arm.driver_ee_pose())
 ```
 
-The calls you will need:
+Three things that will otherwise cost you time:
 
-| Call | What it does |
-|---|---|
-| `bot.arm.set_joint_positions([w, s, e, wa, wr])` | Command five joint angles in radians |
-| `bot.arm.get_joint_positions()` | Read the angles the servos actually reached |
-| `bot.arm.get_ee_pose()` | The driver's own 4x4 end effector pose |
-| `bot.arm.go_to_home_pose()` / `go_to_sleep_pose()` | The two presets |
-| `bot.arm.set_single_joint_position('waist', 0.8)` | One joint by name |
-| `bot.arm.set_trajectory_time(moving_time=3.0)` | Seconds per motion. Raise it to slow the arm |
+**Angles are radians**, in `JOINT_NAMES` order. Use `math.radians()` if you prefer degrees.
 
-Each call blocks until the motion completes.
-
-Three things that will cost you time otherwise:
-
-**Angles are radians.** Use `math.radians()` if you prefer degrees.
-
-**`get_ee_pose()` is the driver's answer, not yours.** It comes from the manufacturer's model, so
-it is an excellent check on your forward kinematics. Comparing your FK against it is faster than
-reaching for a ruler, and it isolates model error from measurement error. The ruler measurement
-Part D asks for is still required, because the driver's model and the physical arm are also two
-different things.
+**`driver_ee_pose()` is the manufacturer's forward kinematics, not yours.** It is a free check on
+your `fk()` that needs no ruler, and it separates model error from measurement error. It does not
+replace the physical measurement Part D asks for, because the driver's model and the real arm are
+also two different things.
 
 **Start slow and near home.** Raise `moving_time` while you are learning. A single large command
 takes the shortest joint path, which is not the path you pictured, and the arm can swing through

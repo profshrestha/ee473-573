@@ -11,6 +11,12 @@ Check Canvas for deliverables, deadlines, and grading rubric.
 | [Projects](projects/) | Project assignments, one folder per project |
 | [Lecture Resources](lecture-resources/) | Supporting material for lectures |
 
+## Lab guides
+
+| Guide | Description |
+|---|---|
+| [ROS 2, RViz and the RX150](lecture-resources/ros2-rx150/README.md) | Getting started with the arms on the lab stations: launching the model, driving the real arm, and commanding joint angles from Python |
+
 ## Projects
 
 | # | Project |
