@@ -27,7 +27,7 @@ are independent, and RViz happily shows you a perfect model of an arm that is no
 
 ## 1. Before you start
 
-The arms live in **Salazar 2008**. Four are available; use **Arm-1, Arm-2 or Arm-4**.
+The arms live in **Salazar 2008**. Four are available: **Arm-1 through Arm-4**.
 
 Everything you need is already installed on the station. Log in with your SSU ID, open a
 terminal, and connect the arm's USB cable to the machine.
