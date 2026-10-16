@@ -369,6 +369,14 @@ shoulder and an elbow whose axes are parallel to each other and perpendicular to
 This is an RX150 with the wrist removed. L₁ is the height of the shoulder above the base, L₂ the
 upper arm, and L₃ the forearm.
 
+![Sketch of the RRR arm at its home configuration: the base frame x₀ y₀ z₀ at the mounting
+surface, θ₁ turning about z₀, L₁ rising to the shoulder, θ₂ and θ₃ turning about negative y₀, L₂
+and L₃ running out along x₀, and the tool frame xₜ yₜ zₜ at the far end.](figs/rrr-arm-frames.jpg)
+
+*The arm at home, with every joint angle zero. Note that there are no intermediate frames to
+assign: one base frame, one tool frame, and three axes drawn where the joints actually are. That
+is the whole model.*
+
 The base frame sits on the mounting surface with z up and x forward. At the home configuration
 every joint angle is zero and the arm reaches straight out along the base x axis at the height of
 the shoulder. The shoulder and elbow axes are taken along negative base y, so that positive θ₂ and
