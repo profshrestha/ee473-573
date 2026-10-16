@@ -438,6 +438,14 @@ H^0_3(\theta) = e^{[\mathcal{S}_1]\theta_1} e^{[\mathcal{S}_2]\theta_2} e^{[\mat
 
 Every number came off the drawing, and no frames were assigned.
 
+![The worked example on the board: the skew-matrix notation, the boxed product of exponentials,
+the joint positions q at the home configuration, the three screw axes, the arm sketch with its
+angular velocities labelled, and the home transform M.](figs/rrr-worked-example-board.jpg)
+
+*The whole model on one board. The chain at the lower left is the one to carry away: an axis ω
+becomes a skew matrix [ω], which exponentiates to a rotation, and the same move on a screw axis
+gives e^[S]θ, a rigid-body motion.*
+
 ### 8.1 Check it against trigonometry
 
 The example is worth carrying out because it can be verified independently. The articulated arm has
