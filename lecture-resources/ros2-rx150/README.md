@@ -320,6 +320,12 @@ bot.arm.set_trajectory_time(moving_time=4.0, accel_time=1.0)
 2. Stop every launch with **Ctrl + C**
 3. Disconnect the USB cable
 4. Return all equipment to where you found it and tidy the station
+5. **Log out. Leave the computer running.**
+
+> **Log out, do not shut down.** Logging out ends your session and protects your files; the
+> station itself stays on. The machines are maintained and updated remotely, and one that has
+> been powered off cannot be reached, so it misses the work and is waiting broken for whoever
+> sits down next. Leave it at the login screen.
 
 ---
 

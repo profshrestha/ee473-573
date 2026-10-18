@@ -144,6 +144,11 @@ Take them to your station and set up in this order:
 **When you finish, return the arm, the adapter, the cable and the clamp to where you found them.**
 The three cables in particular are shared across eight teams.
 
+**Then log out, and leave the computer running.** Logging out ends your session and protects your
+files; the station itself stays on. The machines are maintained and updated remotely, and one that
+has been powered off cannot be reached, so it misses the work and is waiting broken for whoever
+sits down next. Leave it at the login screen.
+
 ### The collapse warning
 
 **The arm falls when the motors are released.** This happens in two situations, both of which you
