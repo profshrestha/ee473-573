@@ -53,7 +53,7 @@ them.
 takes numbers in and returns numbers out. The arm-specific code lives in `robot/`, and its job is
 to accept a vector of joint angles and send it.
 
-This is not stylistic. In Project 3 you will move this library onto a different arm with an extra
+This is not stylistic. In Project 2 you will move this library onto a different arm with an extra
 joint, driven through a completely different software stack. Both arms come from the same
 manufacturer and they still share almost nothing on the software side: the RX150 goes through the
 Interbotix ROS packages, and the WidowX AI goes through a plain Python driver over Ethernet. If
@@ -247,7 +247,7 @@ Then:
 > From Lynch and Park, *Modern Robotics*, §4.2, pages 152 to 158. Cambridge University Press,
 > 2017. The full book is free at [modernrobotics.org](http://modernrobotics.org) and is worth
 > having: §4.1 covers the product of exponentials, Appendix C the Denavit-Hartenberg convention,
-> and Chapter 5 the Jacobian you will need in Project 2.
+> and Chapter 5 velocity kinematics and the Jacobian, which Project 3 takes up.
 >
 > Two things in it are worth carrying into this project directly. An `<origin>` is the pose of
 > the **child** link's frame in the **parent's** frame when the joint variable is zero, which is
@@ -374,12 +374,11 @@ edges:
 
 Then write the round-trip test in `tests/test_roundtrip.py`: for a set of reachable targets, run
 IK, feed each solution back through FK, and confirm you recover the target within tolerance. This
-is how you find out your solver works without asking anyone, and it covers you through Project 2,
-which stays on this arm.
+is how you find out your solver works without asking anyone.
 
-The test itself retires in Project 3, where the arm changes and the solver changes with it. The
-technique does not. You will check two independent solvers against each other there for the same
-reason you are checking one against itself here, so build the habit now.
+The test itself retires in Project 2, where the arm changes and the solver changes with it. The
+technique does not. You will check two independent solvers against each other in Project 3, for
+the same reason you are checking one against itself here, so build the habit now.
 
 > A passing round trip proves a solution is *valid*. It does not prove you found *all* of them,
 > and it does not prove the arm can adopt it. That is why the two requirements above exist.
