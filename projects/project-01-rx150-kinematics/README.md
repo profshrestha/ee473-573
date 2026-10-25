@@ -1,176 +1,185 @@
 # Project 1: Kinematics of the RX150
 
-**Individual work, in a shared repository.** You write your own code and your own derivation, in
-your own directory at `students/<your-username>/`. Hardware measurement sessions are done in your
-team of three, since arms are time-shared and measuring is a job for more than one person, and
-the measurements go in one shared file that all three of you analyse separately.
+**Individual project, conducted within a shared repository.** Each student produces their own
+derivation and their own implementation, in their own directory at `students/<your-username>/`.
+The hardware measurement session of Part D is conducted in teams of three, as the manipulators
+are time-shared and measurement requires more than one person; the resulting measurements are
+recorded in a single shared file and analyzed independently by each team member.
 
-Check Canvas for deliverables, deadlines, and grading rubric.
+Consult Canvas for deliverables, deadlines, and the grading rubric.
 
 ## 1. Objectives
 
-- Assign coordinate frames to a real manipulator and derive its DH parameter table.
-- Implement forward kinematics from your own table and verify it against three independent
-  sources.
-- Implement inverse kinematics for an arm with fewer than six degrees of freedom, handling
-  multiple solutions, joint limits, and unreachable targets.
-- Command the physical arm, measure where the gripper actually goes, and account for the
-  difference between your model and the machine.
+Upon completion of this project, students will be able to:
 
-## 2. What you are building
+- Assign coordinate frames to a physical manipulator and derive its Denavit-Hartenberg parameter
+  table.
+- Implement forward kinematics from that table and verify the implementation against three
+  independent sources.
+- Implement inverse kinematics for a manipulator having fewer than six degrees of freedom,
+  accounting for multiple solutions, joint limits, and unreachable targets.
+- Command a physical manipulator, measure the resulting end-effector position, and account for
+  the discrepancy between the kinematic model and the machine.
 
-You are writing a small kinematics library, not a script. The structure matters and is graded:
+## 2. Scope of the implementation
+
+The deliverable is a kinematics library rather than a script. Its organization is prescribed
+below and forms part of the assessment:
 
 ```
-students/<your-username>/      your work. Your teammates have their own beside it
-  kinematics/     pure math. Imports numpy and nothing else.
+students/<your-username>/      individual work; teammates have their own directories alongside
+  kinematics/     pure mathematics; imports numpy and nothing further
     transforms.py rotation matrices, homogeneous transforms, helpers
     fk.py         DH table to A matrix, forward kinematics, and the PoE check
     ik.py         inverse kinematics
   robot/
-    rx150.py      the ONLY file permitted to import a robot SDK or talk to hardware
+    rx150.py      the ONLY file permitted to import a robot SDK or address hardware
   tests/
     test_roundtrip.py
   scripts/
-    verify_fk.py  harness for the three forward kinematics checks in Part B
-  REPORT.md       your report. This is the deliverable people read.
-  figures/        photographs and plots the report points at
+    verify_fk.py  harness for the three forward kinematics checks of Part B
+  REPORT.md       the report; this is the deliverable the reader engages with
+  figures/        photographs and plots referenced by the report
 
 data/
-  partD-measurements.csv   shared with your team. One session, three analyses
+  partD-measurements.csv   shared within the team: one session, three analyses
 ```
 
-Your repository already has all of this in place, with every function stubbed out. Fill the stubs
-in; do not restructure.
+This structure is already present in the repository, with each function stubbed. Complete the
+stubs; do not reorganize the package.
 
-**One repository per station, one directory per student.** The code is individual: your own frame
-assignment, your own DH table, your own kinematics, your own report. You share the repository so
-that the Part D measurement session has one home, and so three independent derivations can be
-compared against one set of measurements. Stay in your own directory and do not copy between
-them.
+**One repository per station, one directory per student.** The implementation is individual: each
+student produces their own frame assignment, parameter table, kinematic routines, and report. The
+repository is shared so that the Part D measurement session has a single home, and so that three
+independently derived models may be compared against one set of measurements. Work within your own
+directory and do not copy between them.
 
-**Nothing in `kinematics/` may import a robot driver, ROS, or anything hardware specific.** It
-takes numbers in and returns numbers out. The arm-specific code lives in `robot/`, and its job is
-to accept a vector of joint angles and send it.
+**No module within `kinematics/` may import a robot driver, ROS, or any hardware-specific
+package.** The kinematic routines accept numerical arguments and return numerical results. Code
+specific to the manipulator belongs in `robot/`, whose responsibility is to accept a vector of
+joint angles and transmit it.
 
-This is not stylistic. In Project 2 you will move this library onto a different arm with an extra
-joint, driven through a completely different software stack. Both arms come from the same
-manufacturer and they still share almost nothing on the software side: the RX150 goes through the
-Interbotix ROS packages, and the WidowX AI goes through a plain Python driver over Ethernet. If
-the math is tangled up with the driver, that port is a rewrite. If it is clean, it is one new
-file.
+This separation is not a matter of style. In Project 2 the same library is extended to a different
+manipulator possessing an additional joint and addressed through an entirely different software
+stack. Both arms originate with the same manufacturer and nevertheless share almost nothing at the
+software level: the RX150 is commanded through the Interbotix ROS packages, while the WidowX AI is
+addressed by a Python driver over Ethernet. Where the kinematics are entangled with the driver,
+that extension constitutes a rewrite; where they are separated, it requires one additional file.
 
 ## 3. Setup
 
-1. **Accept the GitHub invitation** sent to your `@sonoma.edu` address. It puts you in the
-   `SSU-ISL` organization, where you will find one private repository named for your station,
-   shared with your station team. It already has the structure above in place.
+1. **Accept the GitHub invitation** sent to your `@sonoma.edu` address. It confers membership in
+   the `SSU-ISL` organization, which contains one private repository named for your station and
+   shared with your station team. The structure described above is already in place.
 
-   The invitation can only be accepted by a GitHub account with your `@sonoma.edu` address
-   verified on it. If you already had an account under a personal address, add the SSU one first
+   The invitation can be accepted only by a GitHub account on which your `@sonoma.edu` address is
+   verified. If an account already exists under a personal address, add the SSU address first
    under Settings, Emails. Invitations expire after seven days.
 
-2. Clone it to your station machine and move into **your own** directory.
+2. Clone the repository to your station and change into your own directory.
 
    ```bash
    git clone https://github.com/SSU-ISL/ee473-2026f-p1-station-NN.git
    cd ee473-2026f-p1-station-NN/students/YOUR-USERNAME
    ```
 
-   Your username is the part of your SSU email before the `@`.
+   Your username is the portion of your SSU address preceding the `@`.
 
-3. **Run the test suite.** Everything you need is installed on the station and active when you
-   open a terminal: ROS 2 Jazzy, the Interbotix packages, and the Python environment with NumPy,
-   `modern_robotics`, PyTorch and the rest.
+3. **Run the test suite.** The station provides everything required, active in any new terminal:
+   ROS 2 Jazzy, the Interbotix packages, and a Python environment containing NumPy,
+   `modern_robotics`, PyTorch, and the remaining dependencies.
 
    ```bash
-   pytest -v        # 14 failures, all NotImplementedError. That is the starting line.
+   pytest -v        # 14 failures, all NotImplementedError
    ```
 
-   Run it from your own directory, not from the repository root. Three copies of the same
-   package live side by side, and collecting them all at once confuses the import machinery.
+   Invoke it from your own directory rather than from the repository root. Three copies of the
+   same package reside alongside one another, and collecting them simultaneously confuses the
+   import machinery.
 
-   If `pytest` is not found, open a new terminal, or run `source /opt/isl-venv/bin/activate`.
+   Should `pytest` not be found, open a new terminal or run `source /opt/isl-venv/bin/activate`.
 
-   The `requirements.txt` in your repository is a manifest of what the station provides. Its
-   PyTorch is pinned to the CUDA 12.8 build the RTX 5080 requires.
+   The `requirements.txt` in the repository documents what the station provides. Its PyTorch is
+   pinned to the CUDA 12.8 build required by the RTX 5080.
 
-4. Confirm you can launch the RX150 description and see the arm in RViz before you write any
-   kinematics.
+4. Confirm that the RX150 description launches and that the manipulator is visible in RViz before
+   writing any kinematic code.
 
-5. **Codex CLI is installed** if you want an AI assistant in the terminal. Run `codex login`
-   once, then `codex` from inside your repository. Run `codex logout` when you leave the
-   station: it is shared.
+5. **Codex CLI is available** for students who wish to use an assistant at the terminal. Run
+   `codex login` once, then invoke `codex` from within the repository. Run `codex logout` upon
+   leaving the station, which is shared.
 
-> **Never commit credentials.** No tokens, no `.env` files, no API keys. The `.gitignore` already
-> excludes the common cases, but check `git status` before you commit.
+> **Credentials are never committed.** No tokens, no `.env` files, no API keys. The `.gitignore`
+> excludes the common cases; verify with `git status` before committing.
 
-## 4. Working with the arm
+## 4. Working with the manipulator
 
-Read this before you touch an arm. It applies from Part A onward.
+This section should be read before handling an arm. It applies from Part A onward.
 
-The ROS 2 mechanics, launching the description and the control stack, what RViz is actually
-showing you, torque control, the RViz panel and the Python API, are in
-**[ROS 2, RViz and the RX150](../../lecture-resources/ros2-rx150/README.md)**. Work through that
-page once. This section covers only what is specific to this project.
+The ROS 2 mechanics, launching the description and the control stack, the interpretation of what
+RViz displays, torque control, the RViz panel, and the Python API, are documented in
+**[ROS 2, RViz and the RX150](../../lecture-resources/ros2-rx150/README.md)**. That material
+should be worked through once. What follows is specific to this project.
 
-### Checking out the hardware
+### 4.1 Hardware checkout
 
-The RX150 arms are in **Salazar 2008**. For each session, collect four items:
+The RX150 manipulators are located in **Salazar 2008**. Each session requires four items:
 
 | | |
 |---|---|
 | **Arm** | An RX150 |
 | **Power adapter** | The arm's own 12 V supply |
-| **USB cable** | USB to micro USB. Three dedicated cables remain, and any USB to micro USB cable works if they are out |
-| **Clamp** | For fixing the arm to the table |
+| **USB cable** | USB to micro USB. Three dedicated cables remain; any USB to micro USB cable is suitable if these are unavailable |
+| **Clamp** | For securing the arm to the table |
 
-Take them to your station and set up in this order:
+Set up at the station in the following order:
 
-1. **Clamp the arm to the table.** The base must be fixed before power goes on. An unclamped arm
-   walks across the table and then off it.
-2. **Clear the workspace.** The RX150 reaches about 450 mm in every direction, so keep that
-   radius free of laptops, bottles, keyboards and hands.
-3. Connect the power adapter, then the USB cable to your station.
-4. Confirm the arm is detected:
+1. **Secure the arm to the table with the clamp.** The base must be fixed before power is
+   applied. An unclamped manipulator will translate across the work surface under its own
+   reaction torques.
+2. **Clear the workspace.** The RX150 reaches approximately 450 mm in every direction; that
+   radius must be free of laptops, bottles, keyboards, and hands.
+3. Connect the power adapter, then the USB cable to the station.
+4. Confirm that the arm is detected:
 
    ```bash
    ls /dev | grep ttyDXL
    ```
 
-   An empty result means the USB or power connection is not made. Everything else depends on
-   this line.
+   An empty result indicates that either the USB or the power connection has not been made.
+   Everything subsequent depends upon this result.
 
-**When you finish, return the arm, the adapter, the cable and the clamp to where you found them.**
-The three cables in particular are shared across eight teams.
+**Upon finishing, return the arm, adapter, cable, and clamp to their storage location.** The
+three cables in particular are shared among eight teams.
 
-**Then log out, and leave the computer running.** Logging out ends your session and protects your
-files; the station itself stays on. The machines are maintained and updated remotely, and one that
-has been powered off cannot be reached, so it misses the work and is waiting broken for whoever
-sits down next. Leave it at the login screen.
+**Log out, and leave the station running.** Logging out terminates the session and protects your
+files while leaving the machine itself powered. The stations are maintained and updated remotely,
+and one that has been powered off is unreachable: it misses that maintenance and is found
+inoperable by the next user. Leave the station at the login screen.
 
-### The collapse warning
+### 4.2 Release of the servos
 
-**The arm falls when the motors are released.** This happens in two situations, both of which you
-will hit in this project:
+**The manipulator falls when its motors are released.** This occurs in two circumstances, both of
+which arise in this project:
 
-- Torquing the motors off with a service call
-- Closing the control launch with Ctrl + C
+- Disabling the motor torque through a service call
+- Terminating the control launch with Ctrl + C
 
-Before either one: **send the arm to Sleep Pose, or hold it.** Sleep is the folded configuration
-where the arm rests on itself and has nowhere to fall. Make it the last thing you do in every
-session.
+In either case, **command the arm to its Sleep Pose beforehand, or support it by hand.** Sleep is
+the folded configuration in which the arm rests upon itself and has nowhere to fall. It should be
+the final action of every session.
 
-If the arm does start to fall, cut power rather than catching it. A falling arm has more torque
-behind it than you expect, and a hand in the path becomes a pinch point.
+Should the manipulator begin to fall, disconnect power rather than attempting to catch it. A
+falling arm carries more momentum than anticipated, and a hand placed in its path becomes a pinch
+point.
 
-### Which launch for which part
+### 4.3 Launch configuration by part
 
-| Part | Launch | Why |
+| Part | Launch | Purpose |
 |---|---|---|
-| A, B | `xsarm_description.launch.py` | The model and the slider GUI, no hardware. The sliders are in radians and their end stops are the real joint limits, so this is the cheapest way to check whether a configuration you derived is reachable |
-| C | none | Inverse kinematics is pure math. Check it with the round trip tests |
-| D | `xsarm_control.launch.py` | The driver and the real arm |
+| A, B | `xsarm_description.launch.py` | The model and the slider interface, without hardware. The sliders are calibrated in radians and their end stops correspond to the physical joint limits, which makes this the least costly means of determining whether a derived configuration is reachable |
+| C | none | Inverse kinematics is purely computational; verification is by the round-trip test |
+| D | `xsarm_control.launch.py` | The driver and the physical manipulator |
 
 ```bash
 ros2 launch interbotix_xsarm_descriptions xsarm_description.launch.py \
@@ -179,21 +188,23 @@ ros2 launch interbotix_xsarm_descriptions xsarm_description.launch.py \
 ros2 launch interbotix_xsarm_control xsarm_control.launch.py robot_model:=rx150
 ```
 
-Backdriving the arm by hand through your five Part D configurations, with the motors torqued off,
-tells you quickly which ones are awkward or unreachable. Do that before you command them.
+Backdriving the manipulator by hand through the five Part D configurations, with the motors
+disabled, establishes quickly which are awkward or unreachable. This is worth doing before
+commanding them.
 
-### Where your hardware code goes
+### 4.4 Placement of hardware code
 
-All of it goes in the `Arm` class in `robot/rx150.py`, and nowhere else. That file is the only
-one in the project permitted to import a robot SDK, and the boundary is graded.
+All hardware code belongs in the `Arm` class within `robot/rx150.py`. That file is the only one
+in the project permitted to import a robot SDK, and the boundary forms part of the assessment.
 
-Fill in `__enter__` and `__exit__` with `InterbotixManipulatorXS`, `robot_startup()` and
-`robot_shutdown()`, then `send()`, `read()` and `driver_ee_pose()`. Keep the Interbotix imports
-inside the methods: the test suite has to run on a machine with no arm attached, and a
-module-level import makes `pytest` fail at collection for a reason that has nothing to do with
-your code.
+Implement `__enter__` and `__exit__` using `InterbotixManipulatorXS`, `robot_startup()`, and
+`robot_shutdown()`, followed by `send()`, `read()`, and `driver_ee_pose()`. The Interbotix imports
+should remain within the method bodies: the test suite must run on a machine with no manipulator
+attached, and a module-level import causes `pytest` to fail during collection for reasons
+unrelated to the code under test.
 
-Used as a context manager, the arm is put away even when your script raises partway through:
+Employed as a context manager, the class restores the arm even when a script raises partway
+through:
 
 ```python
 from robot.rx150 import Arm
@@ -204,82 +215,91 @@ with Arm() as arm:
     print(arm.driver_ee_pose())
 ```
 
-Three things that will otherwise cost you time:
+Three practical matters are worth noting.
 
-**Angles are radians**, in `JOINT_NAMES` order. Use `math.radians()` if you prefer degrees.
+**Angles are expressed in radians**, ordered according to `JOINT_NAMES`. Use `math.radians()` if
+degrees are preferred.
 
-**`driver_ee_pose()` is the manufacturer's forward kinematics, not yours.** It is a free check on
-your `fk()` that needs no ruler, and it separates model error from measurement error. It does not
-replace the physical measurement Part D asks for, because the driver's model and the real arm are
-also two different things.
+**`driver_ee_pose()` returns the manufacturer's forward kinematics, not your own.** It therefore
+provides a check on `fk()` requiring no measurement, and it separates model error from measurement
+error. It does not substitute for the physical measurement required by Part D, since the driver's
+model and the physical arm are themselves distinct.
 
-**Start slow and near home.** Raise `moving_time` while you are learning. A single large command
-takes the shortest joint path, which is not the path you pictured, and the arm can swing through
-the table on the way.
+**Begin with small motions near the home configuration.** Increase `moving_time` while becoming
+familiar with the system. A single large command follows the shortest path in joint space, which
+is not generally the path anticipated, and the manipulator may pass through the work surface in
+transit.
 
-## 5. Part A: Frames and the DH table
+## 5. Part A: Frames and the Denavit-Hartenberg table
 
-**Start and end where everyone else does.** A DH table only means anything relative to where the
-chain begins and ends, so these two are given to you rather than chosen:
+A Denavit-Hartenberg parameterization is meaningful only relative to a specified base frame and
+tool frame. Both are prescribed here rather than selected by the student:
 
-- **Base frame: `base_link`.** Origin at the mounting surface, axes in the ROS convention, **x
-  forward, y left, z up**, with z along the waist rotation axis.
-- **Tool frame: `ee_gripper_link`.** This is not the last joint. Four **fixed** joints sit between
-  the last revolute joint and the tool point, and your chain must include all of them.
+- **Base frame: `base_link`.** Origin at the mounting surface, axes following the ROS convention,
+  **x forward, y left, z up**, with z coincident with the waist rotation axis.
+- **Tool frame: `ee_gripper_link`.** This frame is not coincident with the final joint. Four
+  **fixed** joints lie between the last revolute joint and the tool point, and the chain must
+  include all of them.
 
-Then:
+Proceed as follows:
 
-1. Using the frame assignment rules from lecture, attach a frame to every link of the RX150.
-   Draw this by hand. Photograph or scan the drawing; it is part of your submission.
-2. Derive the DH parameter table. Mark the joint variable in each row.
+1. Applying the frame assignment procedure from lecture, attach a frame to each link of the
+   RX150. Produce this assignment as a hand drawing, and photograph or scan it; the drawing forms
+   part of the submission.
+2. Derive the Denavit-Hartenberg parameter table, identifying the joint variable in each row.
 3. **Cross-check the dimensions against the URDF**, as described below.
 
-### Reading the URDF
+### 5.1 Reading the URDF
 
-> **Read this first:** [The Universal Robot Description Format
+> **Preliminary reading:** [The Universal Robot Description Format
 > (PDF, 7 pages)](references/lynch-park-4.2-urdf.pdf)
 >
-> It covers exactly what you are about to do: what `<joint>`, `<parent>`, `<child>`, `<origin>`
-> and `<axis>` each mean, why a URDF describes a robot as a tree rather than a chain, why most
-> links carry two frames rather than one, and a fully annotated URDF for the UR5 printed beside a
-> diagram of its frames.
+> It treats precisely the task at hand: the meaning of `<joint>`, `<parent>`, `<child>`,
+> `<origin>` and `<axis>`, why a URDF describes a robot as a tree rather than a chain, why most
+> links carry two frames rather than one, and a fully annotated URDF for the UR5 presented
+> alongside a diagram of its frames.
 >
 > From Lynch and Park, *Modern Robotics*, §4.2, pages 152 to 158. Cambridge University Press,
-> 2017. The full book is free at [modernrobotics.org](http://modernrobotics.org) and is worth
-> having: §4.1 covers the product of exponentials, Appendix C the Denavit-Hartenberg convention,
-> and Chapter 5 velocity kinematics and the Jacobian, which Project 3 takes up.
+> 2017. The complete text is freely available at
+> [modernrobotics.org](http://modernrobotics.org) and is worth acquiring: §4.1 treats the product
+> of exponentials, Appendix C the Denavit-Hartenberg convention, and Chapter 5 velocity kinematics
+> and the Jacobian, which Project 3 takes up.
 >
-> Two things in it are worth carrying into this project directly. An `<origin>` is the pose of
-> the **child** link's frame in the **parent's** frame when the joint variable is zero, which is
-> the point laboured below. And an `<axis>` is a unit vector in the **child** link's frame, not
-> the base frame, which is why you cannot read the axes off and use them as they stand.
+> Two points from that reading carry directly into this project. An `<origin>` specifies the pose
+> of the **child** link's frame within the **parent's** frame when the joint variable is zero,
+> which is the point developed below. And an `<axis>` is a unit vector in the **child** link's
+> frame rather than the base frame, which is why the axes cannot be read off and used as they
+> stand.
 
-The description lives in the `interbotix_xsarm_descriptions` package as `rx150.urdf.xacro`. It is
-a **xacro** file, not plain URDF, so it is full of unresolved `$(arg ...)` substitutions and link
-names will read as `$(arg robot_name)/base_link`. Either substitute mentally as you read, or run
-it through `xacro` first to produce a plain URDF, which is easier.
+The description resides in the `interbotix_xsarm_descriptions` package as `rx150.urdf.xacro`. It
+is a **xacro** file rather than plain URDF, so it contains unresolved `$(arg ...)` substitutions,
+and link names appear as `$(arg robot_name)/base_link`. Either substitute mentally while reading
+or process the file with `xacro` to obtain plain URDF, which is the more convenient approach.
 
-What to read and what to ignore:
+What to read, and what to disregard:
 
-- **Read** the `<joint>` blocks. Within each one, `<parent>`, `<child>`, `<origin>`, and `<axis>`
-  are the kinematics, and nothing else in the file is.
-- **Ignore** every `<visual>`, `<collision>`, and `<inertial>` block. They describe appearance and
-  mass, not geometry of the chain.
+- **Read** the `<joint>` blocks. Within each, `<parent>`, `<child>`, `<origin>`, and `<axis>`
+  constitute the kinematics; nothing else in the file does.
+- **Disregard** every `<visual>`, `<collision>`, and `<inertial>` block. These describe appearance
+  and mass distribution rather than the geometry of the chain.
 
-Three traps, all of which have caught people before:
+Three features of this file warrant particular attention:
 
-- `base_link` has a **visual** origin with a nonzero `rpy`. That rotates the mesh so the model
-  looks right on screen. It is not a kinematic transform and it must not appear in your table.
-- Inside a joint block in this file, `<axis>` is written **before** `<origin>`. If you grab the
-  first `xyz` you see, you have grabbed the rotation axis and called it a translation.
-- One joint in the gripper is a **branch**, not part of the chain to the tool point. Follow
-  parent and child links to the tool frame and ignore anything that leaves that path.
+- `base_link` carries a **visual** origin with a nonzero `rpy`. This rotates the mesh so that the
+  model renders correctly on screen. It is not a kinematic transformation and must not appear in
+  the parameter table.
+- Within a joint block in this file, `<axis>` precedes `<origin>`. Taking the first `xyz`
+  encountered yields the rotation axis in place of a translation.
+- One joint within the gripper constitutes a **branch** rather than part of the chain to the tool
+  point. Follow the parent and child links to the tool frame and disregard anything departing
+  from that path.
 
-### The chain, transcribed
+### 5.2 The kinematic chain
 
-Here is the kinematic chain pulled out of that file, so that twenty-one people do not each
-misread it in a different way. **Verify it against the file yourself.** It is reference data, not
-an answer: converting these offsets into DH parameters is still entirely your work.
+The chain is transcribed below from that file, so that twenty-one readers do not each misread it
+differently. **Verify the transcription against the file independently.** It is reference data
+rather than a solution: converting these offsets into Denavit-Hartenberg parameters remains
+entirely the student's work.
 
 | Joint | Type | Axis | Origin xyz (m) | Parent link to child link |
 |---|---|---|---|---|
@@ -293,163 +313,185 @@ an answer: converting these offsets into DH parameters is still entirely your wo
 | ee_bar | fixed | | 0.023, 0, 0 | gripper_bar_link to fingers_link |
 | ee_gripper | fixed | | 0.027575, 0, 0 | fingers_link to ee_gripper_link |
 
-**Every `rpy` in the chain is `0 0 0`**, which is why there is no column for it. The description is
-pure translation, and the joint axes do all of the orienting.
+**Every `rpy` in the chain is `0 0 0`**, which is why no column for it appears. The description
+consists entirely of translations, and the joint axes account for all of the orientation.
 
-Read the last four rows carefully. They are all fixed, they carry no axis, and together they add
-**0.093575 m** between the last revolute joint and the tool frame. Drop any one of them and your
-model is short by that amount at every pose you ever compute.
+The final four rows merit careful reading. All are fixed, none carries an axis, and together they
+contribute **0.093575 m** between the last revolute joint and the tool frame. Omitting any one of
+them leaves the model short by that amount at every configuration.
 
-Remember what a joint origin means: it is the transform **from the parent link's frame to the
-child link's frame**, not a position in the base frame. The waist entry of `0, 0, 0.06566` places
-`shoulder_link` 65.66 mm above the mounting surface. It does not move the waist rotation axis,
-which stays on the z line through the base origin. Add the offsets down the chain to get anything
-in base coordinates: the shoulder axis, for instance, ends up 104.57 mm up.
+Recall the meaning of a joint origin: it is the transformation **from the parent link's frame to
+the child link's frame**, not a position expressed in the base frame. The waist entry of
+`0, 0, 0.06566` places `shoulder_link` 65.66 mm above the mounting surface; it does not displace
+the waist rotation axis, which remains on the z line through the base origin. Quantities in base
+coordinates are obtained by accumulating the offsets along the chain: the shoulder axis, for
+example, lies 104.57 mm above the mounting surface.
 
-### Now compare
+### 5.3 Comparison
 
-The URDF does not use DH parameters, so the rows will not correspond to yours. What must agree is
-the **physical geometry**: link lengths, offsets, and the total distance from base to tool. If
-those disagree with your table, your table is wrong, and everything downstream will be wrong with
-it.
+The URDF does not employ Denavit-Hartenberg parameters, so its rows will not correspond to those
+of the derived table. What must agree is the **physical geometry**: link lengths, offsets, and the
+total distance from base to tool. Disagreement there indicates an error in the derived table, and
+every subsequent result will inherit it.
 
-> Nothing in the URDF states that x is forward. The root frame is the reference, and the joint
-> that attaches it to `world` is an identity transform. The convention comes from ROS REP 103,
-> and it is made concrete by the link offsets: the arm stacks along `+z` and reaches along `+x`.
-> This is worth understanding rather than memorizing, because you will meet a robot whose author
-> did not follow the convention.
+> Nothing within the URDF states that x is forward. The root frame serves as the reference, and
+> the joint attaching it to `world` is an identity transformation. The convention originates in
+> ROS REP 103 and is made concrete by the link offsets: the arm stacks along `+z` and extends
+> along `+x`. This is worth understanding rather than memorizing, as manipulators exist whose
+> authors did not adopt the convention.
 
 ## 6. Part B: Forward kinematics
 
-Implement `fk(thetas) -> H`, taking five joint angles and returning the 4x4 pose of the gripper
-frame in the base frame.
+Implement `fk(thetas) -> H`, accepting five joint angles and returning the $4 \times 4$ pose of
+the gripper frame expressed in the base frame.
 
-Then verify it three ways. All three must agree before you move on.
+Verify the implementation by three independent means. All three must agree before proceeding.
 
-1. **Against RViz.** Publish a set of joint angles, let the robot state publisher place the arm,
-   and compare the gripper pose it reports against your computed `H`. This checks your table
-   against an independent implementation of the same robot.
-2. **Against the URDF chain.** Multiply the joint origin transforms from the URDF directly and
-   confirm you land in the same place. This checks your table against the manufacturer's own
-   description.
-3. **Against product of exponentials.** Write the screw axis for each joint in the base frame and
-   compute the same pose with the PoE formula. This checks your table against a method that uses
-   no frame assignment at all, so an error in your frame assignment cannot hide in both.
+1. **Against RViz.** Publish a set of joint angles, allow the robot state publisher to position
+   the manipulator, and compare the reported gripper pose against the computed `H`. This tests
+   the derived table against an independent implementation of the same manipulator.
+2. **Against the URDF chain.** Multiply the joint origin transformations taken from the URDF
+   directly and confirm that the result agrees. This tests the derived table against the
+   manufacturer's own description.
+3. **Against the product of exponentials.** Express the screw axis of each joint in the base
+   frame and compute the same pose by the PoE formula. This tests the derived table against a
+   method requiring no frame assignment, so that an error in frame assignment cannot be present
+   in both.
 
-Report all three comparisons. If any disagree, the disagreement is the finding, and you should
-chase it before continuing.
+Report all three comparisons. Where any disagree, that disagreement constitutes the result and
+should be resolved before proceeding.
 
 ## 7. Part C: Inverse kinematics
 
-**Read this section before you write code.** The RX150 has five joints. A general pose in space
-requires six numbers, three for position and three for orientation. Five joints cannot satisfy six
-constraints, so **for almost any 4x4 matrix you invent, there is no solution at all.** An IK
-function that accepts an arbitrary `H` is asking a question the arm cannot answer.
+This section should be read in full before implementation begins.
 
-Look at what each joint actually buys you:
+The RX150 possesses five joints. A general pose in space requires six parameters, three
+specifying position and three specifying orientation. Five joints cannot satisfy six constraints,
+and consequently **for an arbitrarily specified $4 \times 4$ matrix no solution exists**. An
+inverse kinematic routine accepting an arbitrary `H` therefore poses a question the manipulator
+cannot answer.
 
-- The **waist** rotates the whole arm about the vertical. It sets which vertical plane the rest of
-  the arm works in, and that plane is fixed the moment you choose `x` and `y`.
-- The **shoulder, elbow, and wrist angle** have parallel axes, so they form a planar three-link
-  chain inside that plane. They give you radial distance, height, and the pitch of the approach.
-- The **wrist rotate** spins the gripper about its own approach axis. That is roll.
+Consider what each joint contributes:
 
-So the arm controls position, pitch, and roll, and **yaw is not yours to choose.** The approach
-direction must lie in the vertical plane through the waist, and that plane is already determined
-by where you asked the gripper to go.
+- The **waist** rotates the entire manipulator about the vertical axis. It determines the vertical
+  plane within which the remaining joints operate, and that plane is fixed once `x` and `y` are
+  specified.
+- The **shoulder, elbow, and wrist angle** have parallel axes and therefore constitute a planar
+  three-link chain within that plane. They supply radial distance, height, and the pitch of the
+  approach.
+- The **wrist rotate** revolves the gripper about its own approach axis, supplying roll.
 
-Your solver therefore solves **four joints for four constraints**: `x`, `y`, `z`, and pitch. Roll
-is not solved at all. It is handed to you and passed straight through to the wrist rotate joint,
-because nothing else in the chain depends on it.
+The manipulator therefore commands position, pitch, and roll, and **yaw is not available as a
+free parameter**. The approach direction must lie within the vertical plane through the waist, and
+that plane is determined by the commanded position.
 
-Implement `ik(x, y, z, pitch, roll=0.0) -> list of solutions`, and make it behave properly at the
-edges:
+The solver accordingly determines **four joint variables from four constraints**: `x`, `y`, `z`,
+and pitch. Roll is not solved for. It is supplied by the caller and passed directly to the wrist
+rotate joint, as no other element of the chain depends upon it.
 
-- **Return every solution, not one.** Elbow up and elbow down are both valid, and the waist has a
-  second branch. A solver that silently picks one is hiding information from its caller.
-- **Flag joint limit violations.** A mathematically valid solution the arm cannot physically adopt
-  is not a usable answer. Return it, but mark it.
-- **Detect unreachable targets and say so.** Return an empty list and a reason. Never return a
-  nearby pose as though it were the answer, and never return `NaN`.
+Implement `ik(x, y, z, pitch, roll=0.0) -> list of solutions`, with the following behavior at the
+boundaries of the workspace:
 
-Then write the round-trip test in `tests/test_roundtrip.py`: for a set of reachable targets, run
-IK, feed each solution back through FK, and confirm you recover the target within tolerance. This
-is how you find out your solver works without asking anyone.
+- **Return the complete solution set.** Elbow-up and elbow-down configurations are both valid, and
+  the waist admits a second branch. A solver that silently selects one withholds information from
+  its caller.
+- **Identify joint limit violations.** A mathematically valid solution that the manipulator cannot
+  physically adopt is not a usable result. Return it, but marked as such.
+- **Detect unreachable targets and report them.** Return an empty set together with a reason.
+  Under no circumstances return a nearby configuration as though it were a solution, and never
+  return `NaN`.
 
-The test itself retires in Project 2, where the arm changes and the solver changes with it. The
-technique does not. You will check two independent solvers against each other in Project 3, for
-the same reason you are checking one against itself here, so build the habit now.
+Implement the round-trip test in `tests/test_roundtrip.py`: for a set of reachable targets, run
+the inverse kinematics, propagate each solution back through the forward kinematics, and confirm
+that the target is recovered within tolerance. This establishes the correctness of the solver
+without external reference.
 
-> A passing round trip proves a solution is *valid*. It does not prove you found *all* of them,
-> and it does not prove the arm can adopt it. That is why the two requirements above exist.
+The test itself is retired in Project 2, where the manipulator changes and the solver changes with
+it. The technique is not. Two independent solvers are compared against one another in Project 3,
+for the same reason that one is compared against itself here.
 
-## 8. Part D: Hardware verification
+> A successful round trip establishes that a solution is *valid*. It does not establish that the
+> complete set has been found, nor that the manipulator can adopt the solution. The two
+> requirements above address those questions.
 
-This part is done in your team of three, sharing an arm. All three submit the same measurement
-data; **each of you writes your own analysis against your own forward kinematics.** Your
-predictions will differ if your DH tables differ, and comparing three independent predictions
-against one shared measurement is itself informative.
+## 8. Part D: Experimental verification
 
-Split the roles and rotate them so everyone does each job at least once: one person commands the
-arm, one measures, one records and calls out the predicted value afterward rather than before.
+This part is conducted in teams of three sharing one manipulator. All three members submit the
+same measurement data; **each member produces an independent analysis against their own forward
+kinematics.** Predictions will differ where the derived tables differ, and the comparison of three
+independent predictions against a single set of measurements is itself informative.
 
-> **Before any hardware motion:** run the configuration in RViz first, keep joint velocities low,
-> and keep a hand on the power switch. If the arm moves toward the table, cut power. Do not try to
-> catch it.
+Divide the roles and rotate them so that each member performs each task at least once: one member
+commands the manipulator, one measures, and one records and states the predicted value after the
+measurement is taken rather than before.
 
-Fill in the `Arm` class in `robot/rx150.py` first. It is a context manager, so the arm is put
-back in the sleep pose even if your script raises partway through, and the Interbotix imports
-belong inside its methods so the test suite still runs with no arm attached.
+> **Before commanding any hardware motion:** verify the configuration in RViz, command low joint
+> velocities, and remain within reach of the power disconnect. Should the manipulator move toward
+> the work surface, disconnect power rather than attempting to intervene physically.
 
-1. Choose five reachable configurations that spread across the workspace, not five variations of
-   the same pose.
-2. For each, compute the predicted gripper position with your FK.
-3. Command the arm to that configuration and let it settle.
-4. Measure the actual gripper tip position relative to the base frame origin with a ruler or
-   calipers. Decide on a measurement procedure first and use the same one every time.
-5. Record the angles, the measurements and your notes in `data/partD-measurements.csv` at the
-   repository root. That file is shared: one session, one dataset, three independent analyses.
-6. In your own report, record predicted and measured, and the error per axis in millimetres.
+Implement the `Arm` class in `robot/rx150.py` first. It is a context manager, so that the
+manipulator is returned to the sleep pose even where a script raises partway through, and the
+Interbotix imports belong within its methods so that the test suite remains runnable with no
+manipulator attached.
 
-Record what the servos actually reached with `arm.read()`, not only what you commanded. The two
-differ under gravity load, and that difference is one of the explanations you are asked to weigh.
+1. Select five reachable configurations distributed across the workspace, rather than five
+   variations upon a single configuration.
+2. Compute the predicted gripper position for each using your forward kinematics.
+3. Command the manipulator to each configuration and allow it to settle.
+4. Measure the actual gripper tip position relative to the base frame origin using a rule or
+   calipers. Establish the measurement procedure in advance and apply it consistently.
+5. Record the joint angles, the measurements, and any observations in
+   `data/partD-measurements.csv` at the repository root. That file is shared: one session, one
+   dataset, three independent analyses.
+6. In your own report, tabulate predicted against measured values and the error along each axis
+   in millimeters.
 
-Then account for the difference. Your error will not be zero. Candidates include servo position
-error under gravity load, link dimensions that differ from the datasheet, your measurement
-technique, a wrong DH parameter, and the fact that the gripper tip is not exactly where you
-decided the frame was. Argue for which ones dominate in your data and say how you would test that
-claim.
+Record the configuration the servos actually attained using `arm.read()`, not solely the commanded
+configuration. The two differ under gravitational load, and that difference is among the
+explanations to be evaluated.
+
+Account for the discrepancy. The error will not be zero. Candidate explanations include servo
+position error under gravitational load, link dimensions differing from the published values, the
+measurement technique, an incorrect Denavit-Hartenberg parameter, and the gripper tip not lying
+precisely where the tool frame was defined. Argue from the collected data for the explanations
+that dominate, and describe how that claim would be tested.
 
 ## 9. Deliverables
 
-Everything goes in your repository except the live demo.
+All deliverables reside in the repository with the exception of the oral examination.
 
-- **`REPORT.md`**, the document this project is read through. The template in your repository
-  has the sections. It carries the photographed frame assignment, the DH table, your three
-  forward kinematics verifications with the output that proves them, your inverse kinematics
-  approach, the predicted versus measured table, and the error analysis.
+- **`REPORT.md`**, the document through which this project is assessed. The template in the
+  repository defines the sections. It presents the photographed frame assignment, the
+  Denavit-Hartenberg table, the three forward kinematic verifications together with the output
+  substantiating them, the inverse kinematic formulation, the table of predicted against measured
+  values, and the error analysis.
 
-  Write it as a technical document, not as a form with the blanks filled in. For the shape to
-  aim at, see [Forward Kinematics of the UR5e: DH and
-  PoE](https://www.roboticsunveiled.com/forward-kinematics-ur5e-dh-poe/). That page states the
-  frame assignment, shows the table, gives the equations, shows the code that implements them,
-  and then shows the **actual output** proving the two methods agree. Every claim is backed by
-  something a reader can check. Yours need not be as long. It does need to be as honest.
+  The report should be composed as a technical document rather than as a form with its blanks
+  completed. For an indication of the form to aim at, see [Forward Kinematics of the UR5e: DH and
+  PoE](https://www.roboticsunveiled.com/forward-kinematics-ur5e-dh-poe/). That treatment states
+  the frame assignment, presents the table, gives the equations, shows the implementing code, and
+  then presents the **actual output** establishing that the two methods agree. Every claim is
+  supported by evidence the reader can verify. The report need not be as long. It should be as
+  rigorous.
 
-  It is read on GitHub, so the equations must render there. The template has a note at the
-  bottom on the renderer's sharp edges; read it before you write mathematics, not after.
-- The `kinematics/` library, with `robot/rx150.py` as the only hardware-aware file.
+  The report is read on GitHub, so its equations must render there. The template concludes with a
+  note on the limitations of that renderer, which should be consulted before the mathematics is
+  written rather than afterward.
+- The `kinematics/` library, with `robot/rx150.py` as the sole hardware-aware module.
 - A passing round-trip test.
-- A short note in `README.md` saying how to run your code.
-- **Live demo.** You will be given a target position and approach angle, and asked to command the
-  arm to it and explain why it went where it went. **Run it from your station**, working from the
-  code in your repository. Personal laptops are not used for demos.
+- A brief note in `README.md` describing how the code is run.
+- **Oral examination.** Each student will be assigned a target position and approach angle, asked
+  to command the manipulator to it, and asked to account for the resulting configuration. **The
+  demonstration is conducted at your station**, from the code in your repository. Personal
+  machines are not used.
 
-## 10. Notes
+## 10. Remarks
 
-The gripper frame is yours to define, but define it once and use the same definition in your
-derivation, your code, and your measurements. Most large discrepancies in this project trace back
-to measuring to a different point than the one the model computes.
+The gripper frame is the student's to define, but it must be defined once and employed
+consistently in the derivation, the implementation, and the measurements. The majority of large
+discrepancies in this project are traceable to measuring to a point other than the one the model
+computes.
 
-Joint angle sign conventions and zero positions come from the manufacturer, not from your
-drawing. If your FK is off by a sign on one joint, this is the first place to look.
+Joint angle sign conventions and zero configurations are established by the manufacturer rather
+than by the student's drawing. Where the forward kinematics differs by a sign at a single joint,
+this is the first place to examine.
