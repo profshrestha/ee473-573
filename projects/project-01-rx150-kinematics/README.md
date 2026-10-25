@@ -225,8 +225,8 @@ the path you pictured, and the arm may pass through the work surface on the way.
 
 ## 5. Part A: Frames and the Denavit-Hartenberg table
 
-A Denavit-Hartenberg parameter table means nothing without a stated base frame and tool frame. Both
-are prescribed here rather than chosen by the student:
+A Denavit-Hartenberg parameter table is only meaningful relative to a stated base frame and tool
+frame. Both are prescribed here rather than chosen by the student:
 
 - **Base frame: `base_link`.** Origin at the mounting surface, axes following the ROS convention,
   **x forward, y left, z up**, with z along the waist rotation axis.
