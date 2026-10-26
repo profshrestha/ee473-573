@@ -58,12 +58,13 @@ directory and do not copy between them.
 The kinematic routines take numbers and return numbers. Code specific to the arm belongs in
 `robot/`, whose job is to take a vector of joint angles and send it.
 
-This separation is not a matter of style. In Project 2 the same library is extended to a different
-manipulator with an extra joint and a completely different software stack. Both arms come from the
-same manufacturer and still share almost nothing at the software level: the RX150 is commanded
-through the Interbotix ROS packages, while the WidowX AI is addressed by a Python driver over
-Ethernet. Where the kinematics are tangled up with the driver, that extension is a rewrite; where
-they are separated, it is one more file.
+This separation is not a matter of style. It is what allows the test suite to run on a machine
+with no manipulator attached, and it is what lets a kinematics library outlive the particular arm
+it was written against. Project 2 builds a second library, for a six-axis arm from the same
+manufacturer that shares almost nothing with this one at the software level: the RX150 is
+commanded through the Interbotix ROS packages, while the WidowX AI is addressed by a Python driver
+over Ethernet. Project 3 then extends that second library to velocity control, and that extension
+is far easier where the boundary has held.
 
 ## 3. Setup
 
