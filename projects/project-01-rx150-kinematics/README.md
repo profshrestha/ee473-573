@@ -330,7 +330,7 @@ later result will inherit it.
 
 ## 6. Part B: Forward kinematics
 
-Implement `fk(thetas) -> H`, taking five joint angles and returning the $4 \times 4$ pose of the
+Implement `fk(thetas) -> H`, taking five joint angles and returning the 4 × 4 pose of the
 gripper frame expressed in the base frame.
 
 Verify the implementation three independent ways. All three must agree before going on.
@@ -354,7 +354,7 @@ Read this section in full before implementing anything.
 
 The RX150 has five joints. A general pose in space needs six parameters, three for position and
 three for orientation. Five joints cannot satisfy six constraints, so **for an arbitrarily specified
-$4 \times 4$ matrix no solution exists**. An inverse kinematic routine that accepts an arbitrary `H`
+4 × 4 matrix no solution exists**. An inverse kinematic routine that accepts an arbitrary `H`
 therefore asks a question the arm cannot answer.
 
 Consider what each joint contributes:
