@@ -22,5 +22,6 @@ Check Canvas for deliverables, deadlines, and grading rubric.
 | # | Project |
 |---|---------|
 | 1 | [RX150 Kinematics](projects/project-01-rx150-kinematics/README.md) |
+| 2 | [Six-Axis Kinematics of the WidowX AI](projects/project-02-widowx-6dof/README.md) |
 
 Further projects are linked here as they are released.
