@@ -90,8 +90,31 @@ a translation of 156.06 mm from the flange to the tool point. The full chain the
 transformations for six joints. A table that stops at the sixth joint drops both, and the result
 shows up as a large constant position offset.
 
-**Joint zero configuration.** Use the zero configuration the driver reports. Find out what that
-configuration looks like physically.
+**Joint zero configuration.** Use the zero configuration the driver reports, in which every joint
+variable is zero. Derive the tool pose it corresponds to from the parameter table rather than by
+commanding the manipulator to it.
+
+The zero configuration is a corner of the workspace rather than a neutral posture. In the
+manufacturer's naming, `joint_1` and `joint_2` carry a lower limit of zero, so at the zero
+configuration both rest against that limit and the arm is folded back on itself, with the wrist
+roughly 0.10 m forward of the base and 0.16 m above it. The joint limits, which Part B requires in
+any case, are in `wxai_follower.urdf`.
+
+**Rest pose.** Park the manipulator at
+
+```
+[0, pi/2, pi/2, 0, 0, 0]        # radians, in JOINT_NAMES order
+```
+
+at the start and end of every hardware session, and whenever leaving the bench. This is the pose
+the lab uses. It is clear of every joint limit and is a reasonable configuration from which to
+begin a motion.
+
+Note the distance between the two. Commanding the zero configuration from the rest pose moves
+`joint_1` and `joint_2` through 90 degrees each. Commanding it with the elbow folded up moves them
+through 225 degrees in total, which at the default speed is a rapid sweep across the workspace.
+Treat the zero configuration as a quantity in the parameter table, and the rest pose as where the
+hardware is sent.
 
 **Convention.** Use the classical Denavit-Hartenberg convention from lecture, in which each link
 transformation is `Rot(z, θ) Trans(z, d) Trans(x, a) Rot(x, α)`. Trossen publishes parameters in
@@ -188,6 +211,12 @@ requirements above are stated separately.
 > heavier, more powerful, and more expensive than the RX150. Check each configuration in
 > visualization before commanding it, command motions at reduced speed, and stay within reach of
 > the power disconnect throughout.
+>
+> **Raise `goal_time` on the first commanded motion of a session,** to five seconds or more. The
+> manipulator takes the shortest path in joint space to whatever it is sent, and the distance from
+> its present configuration to the commanded one is rarely obvious from the two poses. Confirm the
+> motion is the intended one at low speed before raising it. The rest pose given in §3.1 is where
+> the arm starts and finishes.
 
 A pose in this context is a 4 × 4 homogeneous transformation, which is what `ik()` accepts.
 Construct it from a position and an approach orientation using `pose_from_xyz_rpy()` in
