@@ -118,6 +118,12 @@ factor, and it varies with the fourth joint variable in a way the factored form 
    are responsible.
 2. **Measure proximity.** Plot a manipulability measure, or the smallest singular value of J, along
    a straight-line path that passes near that configuration.
+
+   > Choose the line so that the arm can travel it. At a singular configuration the arm loses one
+   > task-space direction, given by the last left singular vector of J, and that is the one
+   > direction it cannot produce there. A line aimed along it stalls the damped run of item 3
+   > rather than demonstrating anything. Approach along a direction the Jacobian still covers
+   > well, and let the configuration degrade as the arm travels.
 3. **Show the failure, then fix it.** Run resolved-rate control along that path with the direct
    inverse and plot the commanded joint velocities; expect them to grow without bound. Repeat with
    damped least squares,
@@ -130,6 +136,12 @@ factor, and it varies with the fourth joint variable in a way the factored form 
 4. **Characterize the trade-off.** Damping bounds the joint velocities at the cost of tracking
    accuracy. Quantify both effects from your data and describe how λ would be chosen for a given
    application.
+
+   Report which of the two runs tracked the commanded line more closely, and account for what you
+   find. The direct inverse is the exact solution of the velocity mapping, so the expectation is
+   that it tracks better. Compare the joint displacement it asks for in a single time step against
+   the range over which the Jacobian describes the mapping, and say whether that expectation
+   survives near a singular configuration.
 
 Item 4 is the central result of this project.
 
