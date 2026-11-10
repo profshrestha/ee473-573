@@ -74,8 +74,9 @@ J_{\mathrm{fd}}[:,i] = \frac{f(\theta + h\,e_i) - f(\theta - h\,e_i)}{2h}
 where `e_i` is the i-th unit vector in joint space and h the perturbation in radians. The position
 rows follow from a difference of position vectors. The orientation rows do not, because the
 difference of two rotation matrices is not a rotation: form `R_pert Rᵀ` instead, take its axis and
-angle by the matrix logarithm on SO(3) from §3.5 of the product of exponentials notes, and divide
-by h.
+angle by the matrix logarithm on SO(3) from
+[§3.5 of the product of exponentials notes](../../lecture-resources/product-of-exponentials/README.md#35-the-inverse-matrix-back-to-axis-and-angle),
+and divide by h.
 
 Report the largest disagreement over at least twenty random configurations, and the value of h you
 chose. The error does not fall monotonically as h shrinks, and your choice should reflect that.
