@@ -58,7 +58,7 @@ than exactly. That is still a sharp test: a sign error or a dropped offset misse
 These poses were computed from the Denavit-Hartenberg table and independently from the raw URDF
 chain, the two agreeing to 1.1e-15 m over 4000 random configurations inside the joint limits.
 
-| # | Configuration | q (deg) | x, y, z (mm) | roll, pitch, yaw (rad) |
+| # | Configuration | θ (deg) | x, y, z (mm) | roll, pitch, yaw (rad) |
 |---|---|---|---|---|
 | 1 | home | 0, 0, 0, 0, 0, 0 | 253.762, 0.000, 163.500 | 0.0000, 0.0000, 0.0000 |
 | 2 | rest | 0, 90, 90, 0, 0, 0 | 517.762, 0.000, 427.500 | 0.0000, 0.0000, 0.0000 |
