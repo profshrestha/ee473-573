@@ -111,8 +111,9 @@ Every quantity in this expression is already available. The vector `z_{i-1}` is 
 partial product of the forward kinematics.
 
 The resulting matrix maps joint rates to the linear velocity of the end effector over its angular
-velocity, both in the **base frame**. Record this convention in the code, since it governs how the
-velocity command is formed in Part B.
+velocity, both in the **base frame**. Call that stacked six-vector ζ, the end-effector twist, so
+that ζ = J θ̇. Record this convention in the code, since it governs how the velocity command is
+formed in Part B.
 
 **Verify it before building anything on it.** Compare each column against a central-difference
 approximation,
@@ -179,7 +180,7 @@ factor, and it varies with the fourth joint variable in a way the factored form 
    damped least squares,
 
    ```math
-   \dot{\theta} = J^{\mathrm{T}}\left(JJ^{\mathrm{T}} + \lambda^{2} I\right)^{-1} v
+   \dot{\theta} = J^{\mathrm{T}}\left(JJ^{\mathrm{T}} + \lambda^{2} I\right)^{-1} \zeta
    ```
 
    and plot both for comparison. Replay the damped run in RViz. Do not run either on hardware.
