@@ -31,7 +31,57 @@ kinematics/
   control.py      resolved-rate loop, direct inverse and damped least squares
 ```
 
-### 2.1 Visualization
+### 2.1 What your forward kinematics has to satisfy
+
+Any forward kinematics that reproduces the tool pose is acceptable here. A classical
+Denavit-Hartenberg table is one route, multiplying the joint origin transformations out of
+`wxai_follower.urdf` is another, and the two give the same answer. Nothing this project grades can
+tell them apart: the i-th Jacobian column needs the direction of joint axis i and any one point on
+that axis, and every valid frame assignment supplies the same two. Teams whose intermediate frames
+differ row by row will produce Jacobians agreeing to machine precision.
+
+The same goes for the tool point. Displacing it by a fixed vector r in the end-effector frame
+pre-multiplies the Jacobian by a block matrix whose determinant is 1, so the determinant of J, the
+manipulability, and the location of every singular configuration are all unchanged. Keep whatever
+tool point you used in Project 2.
+
+What does matter is that the pose itself is right, and Part A will not catch it if it is wrong:
+the finite-difference check differentiates your own `fk()`, so it confirms that `jacobian()` and
+`fk()` agree with each other and nothing more. A forward kinematics with a sign error passes it
+cleanly and then corrupts every number in Parts B and C. Check against the eight poses below
+before building anything on top of your `fk()`.
+
+Angles are listed in degrees in joint order, positions are the tool point in millimetres relative
+to `base_link`, and the orientation is given as fixed-axis XYZ roll, pitch and yaw in radians. The
+values below are rounded to 0.001 mm and 0.0001 rad, so match them to 0.01 mm and 0.0002 rad rather
+than exactly. That is still a sharp test: a sign error or a dropped offset misses by millimetres.
+These poses were computed from the Denavit-Hartenberg table and independently from the raw URDF
+chain, the two agreeing to 1.1e-15 m over 4000 random configurations inside the joint limits.
+
+| # | Configuration | q (deg) | x, y, z (mm) | roll, pitch, yaw (rad) |
+|---|---|---|---|---|
+| 1 | home | 0, 0, 0, 0, 0, 0 | 253.762, 0.000, 163.500 | 0.0000, 0.0000, 0.0000 |
+| 2 | rest | 0, 90, 90, 0, 0, 0 | 517.762, 0.000, 427.500 | 0.0000, 0.0000, 0.0000 |
+| 3 | waist only | 45, 0, 0, 0, 0, 0 | 179.437, 179.437, 163.500 | 0.0000, 0.0000, 0.7854 |
+| 4 | shoulder and elbow | 0, 60, 45, 0, 0, 0 | 384.330, 0.000, 261.256 | 0.0000, 0.2618, 0.0000 |
+| 5 | wrist exercised | 0, 45, 90, 30, -40, 60 | 18.355, 118.923, 708.183 | -0.1286, -0.8330, 1.2716 |
+| 6 | general A | 30, 75, 60, -45, 35, -90 | 324.562, 64.851, 163.127 | -2.3529, 0.7887, -0.4271 |
+| 7 | general B | -120, 20, 120, 80, -80, 150 | 372.585, 280.934, 424.652 | -0.5236, 0.0000, -0.3491 |
+| 8 | near limits | -175, 0, 135, -90, 90, 180 | 394.069, 220.195, 282.221 | -2.3562, 0.0000, 1.6581 |
+
+`robot/widowx_reference.py` in the repository will run the comparison for you:
+
+```
+python3 -c "from robot.widowx_reference import check; from kinematics.fk import fk; check(fk)"
+```
+
+If your Project 2 forward kinematics does not reproduce these poses, say so in the report and use
+that module, which does. Doing so costs nothing in Project 3, which grades the Jacobian and the
+control loops rather than the kinematics underneath them. Carrying a broken `fk()` forward
+silently, on the other hand, costs everything downstream. Whichever you use, state which in the
+report.
+
+### 2.2 Visualization
 
 Most of this project runs in RViz rather than on hardware. Resolved-rate control is purely
 kinematic: joint velocities are integrated to get joint positions, and no contact, gravitational,
