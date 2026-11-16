@@ -2,7 +2,7 @@
 
 **Team project.** The work builds on the WidowX AI library your team developed in Project 2, in
 the same teams, with one submission and one report per team. Most of the project runs in
-visualization; one supervised session runs on hardware.
+visualization; one session runs on hardware.
 
 Check Canvas for deliverables, deadlines, and the grading rubric.
 
@@ -198,13 +198,17 @@ Item 4 is the central result of this project.
 
 ## 6. Part D: Hardware session
 
-One supervised session per team.
+One session per team, arranged by the team at its own station. No instructor needs to be present.
+The team does: this is run as a group, and nobody works at the arm alone.
 
-> **Safety.** Put joint velocity limits in software before connecting to the arm, holding commanded
-> velocities well below the servo maxima. Run the trajectory in visualization first, send the arm to
-> the rest pose `[0, pi/2, pi/2, 0, 0, 0]` at the start and end, raise `goal_time` on the first
-> motion, and stay within reach of the power disconnect. A resolved-rate loop with a sign error will
-> drive the arm into the work surface quickly.
+> **Safety.** While the arm is moving, one member stays at the power disconnect, hand free, doing
+> nothing else. That is the job that replaces an instructor standing behind you.
+>
+> Put joint velocity limits in software before connecting to the arm, holding commanded velocities
+> well below the servo maxima. Run the trajectory in visualization first, send the arm to the rest
+> pose `[0, pi/2, pi/2, 0, 0, 0]` at the start and end, raise `goal_time` on the first motion, and
+> keep the work surface clear. A resolved-rate loop with a sign error will drive the arm into the
+> work surface quickly.
 
 Run the straight-line trajectory from Part B on the physical arm, using the same joint angles you
 replayed in RViz. Do not run the near-singular trajectory of Part C.
