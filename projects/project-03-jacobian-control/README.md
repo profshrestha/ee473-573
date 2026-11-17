@@ -201,6 +201,12 @@ Item 4 is the central result of this project.
 One session per team, arranged by the team at its own station. No instructor needs to be present.
 The team does: this is run as a group, and nobody works at the arm alone.
 
+The arm is cabled to the **built-in Ethernet port**, and the USB dongle carries the internet. Do
+not swap them. The dongle's driver batches packets before sending them, which adds over a
+millisecond to every round trip and jitters it; the built-in port runs the same link in under a
+tenth of that. If `ping 192.168.1.2` is slow or the driver reports dropped cycles, check that the
+arm is still on the built-in port before anything else.
+
 > **Safety.** While the arm is moving, one member stays at the power disconnect, hand free, doing
 > nothing else. That is the job that replaces an instructor standing behind you.
 >
