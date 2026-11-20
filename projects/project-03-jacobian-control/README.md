@@ -198,13 +198,10 @@ Item 4 is the central result of this project.
 
 ## 6. Part D: Hardware session
 
-One session per team, arranged by the team at its own station. No instructor needs to be present.
-The team does: this is run as a group, and nobody works at the arm alone.
+Do this as a team. Please do not work at the arm alone.
 
-The arm is cabled to the **built-in Ethernet port**, and the USB dongle carries the internet. Do
-not swap them. The dongle's driver batches packets before sending them, which adds over a
-millisecond to every round trip and jitters it; the built-in port runs the same link in under a
-tenth of that. If `ping 192.168.1.2` is slow or the driver reports dropped cycles, check that the
+The arm is cabled to the **built-in Ethernet port**, and the USB-Ethernet dongle is connected to the campus network (internet). Do
+not swap them. If `ping 192.168.1.2` is slow or the driver reports dropped cycles, check that the
 arm is still on the built-in port before anything else.
 
 > **Safety.** While the arm is moving, one member stays at the power disconnect, hand free, doing
